@@ -54,28 +54,22 @@ test.describe('Home Page UI Tests', () => {
   });
 
   test('can add available pet to cart', async ({ page }) => {
-     // Verify cart is empty initially (assuming cart counter is visible)
-     // This depends on how the header is implemented, but we can check the toast or button state
-     
-     await homePage.addToCart('Buddy');
-     
-     // Verify toast appears
-     await expect(page.getByText('Added to cart!', { exact: false })).toBeVisible();
-     
-     // Verify cart count updated (optional, depends on Header implementation)
-     // For now, toast is a good enough indicator
+    await homePage.addToCart('Buddy');
+
+    // Verify toast appears
+    await expect(page.getByText('Added to cart!', { exact: false })).toBeVisible();
   });
 
   test('cannot add sold pet to cart', async () => {
-      await homePage.soldFilter.click();
-      const soldPetCard = await homePage.getPetCard('Rocky');
-      
-      // Ensure the card is visible first to avoid false positives (e.g. if the list is empty, the button is also not visible)
-      await expect(soldPetCard).toBeVisible();
-      
-      // Button should say "Sold" and be disabled or not be "Add to Cart"
-      await expect(soldPetCard.getByRole('button', { name: 'Add to Cart' })).not.toBeVisible();
-      await expect(soldPetCard.getByRole('status').filter({ hasText: /sold/i })).toBeVisible();
+    await homePage.soldFilter.click();
+    const soldPetCard = await homePage.getPetCard('Rocky');
+
+    // Ensure the pet card is visible first to avoid false positives (e.g. if the list is empty, the button is also not visible)
+    await expect(soldPetCard).toBeVisible();
+
+    // Button should say "Sold" and be disabled or not be "Add to Cart"
+    await expect(soldPetCard.getByRole('button', { name: 'Add to Cart' })).not.toBeVisible();
+    await expect(soldPetCard.getByRole('status').filter({ hasText: /sold/i })).toBeVisible();
   });
 
   test('can filter pets by tag', async ({ page }) => {
@@ -92,12 +86,11 @@ test.describe('Home Page UI Tests', () => {
 
     await homePage.selectTagsMode();
     await homePage.addTagFilter('special-tag');
-    
+
     // Verify results in grid
     await expect(page.getByRole('heading', { name: 'TagPet' })).toBeVisible();
-    
+
     // Verify tag is displayed in the filter list (PetFilters component)
-    // We scope to the filters area to ensure we aren't matching the pet card
     const filtersSection = page.locator('div', { has: page.getByRole('heading', { name: 'Filter By' }) });
     // The tag chip contains the text and a remove button. Checking for the remove button is a robust way to verify the tag's presence.
     await expect(filtersSection.getByRole('button', { name: 'Remove special-tag' })).toBeVisible();
@@ -107,12 +100,37 @@ test.describe('Home Page UI Tests', () => {
     await expect(petCard.getByText('special-tag')).toBeVisible();
   });
 
+  test('can search pets by name', async () => {
+    // Ensure we are in status mode with all statuses to see all potential matches initially
+    await homePage.pendingFilter.click();
+    await homePage.soldFilter.click();
+
+    // Verify all pets are visible initially
+    await expect(homePage.getPetCard('Buddy')).resolves.toBeVisible();
+    await expect(homePage.getPetCard('Mittens')).resolves.toBeVisible();
+    await expect(homePage.getPetCard('Rocky')).resolves.toBeVisible();
+
+    // Search for "Buddy"
+    await homePage.searchInput.fill('Buddy');
+
+    // Verify "Buddy" is still visible
+    await expect(homePage.getPetCard('Buddy')).resolves.toBeVisible();
+
+    // Verify others are hidden
+    await expect(homePage.getPetCard('Mittens')).resolves.not.toBeVisible();
+    await expect(homePage.getPetCard('Rocky')).resolves.not.toBeVisible();
+
+    // Search for "Rocky"
+    await homePage.searchInput.fill('Rocky');
+    await expect(homePage.getPetCard('Rocky')).resolves.toBeVisible();
+    await expect(homePage.getPetCard('Buddy')).resolves.not.toBeVisible();
+  });
+
   test('requests are sent with sorted status parameters', async ({ page }) => {
     // Intercept and check the request URL
-    // We expect the frontend to sort statuses alphabetically: available, pending, sold
-    const requestPromise = page.waitForRequest(request => 
-      request.url().includes('/pet/findByStatus') && 
-      request.url().includes('status=available') && 
+    const requestPromise = page.waitForRequest(request =>
+      request.url().includes('/pet/findByStatus') &&
+      request.url().includes('status=available') &&
       request.url().includes('status=sold')
     );
 
@@ -123,11 +141,11 @@ test.describe('Home Page UI Tests', () => {
 
     const request = await requestPromise;
     const url = request.url();
-    
+
     // Verify "available" comes before "sold" in the URL query string
     const availableIndex = url.indexOf('status=available');
     const soldIndex = url.indexOf('status=sold');
-    
+
     expect(availableIndex).toBeGreaterThan(-1);
     expect(soldIndex).toBeGreaterThan(-1);
     expect(availableIndex).toBeLessThan(soldIndex);

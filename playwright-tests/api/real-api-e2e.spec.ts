@@ -80,7 +80,6 @@ test.describe('Real API End-to-End Tests', () => {
     await checkoutPage.submitOrder();
     
     // Check for success message OR error message (if public API is down/limited)
-    // We'll assert success for the happy path, but failure here indicates API issues.
     await expect(page.getByText('Order Confirmed!')).toBeVisible({ timeout: 10000 });
   });
 
@@ -97,7 +96,6 @@ test.describe('Real API End-to-End Tests', () => {
     await homePage.availableFilter.check();
 
     // 4. Verify Available pets are visible
-    // This previously failed when the backend received unsorted params
     await expect(page.getByRole('status').filter({ hasText: /available/i }).first()).toBeVisible({ timeout: 10000 });
   });
 });

@@ -7,7 +7,9 @@ A modern, responsive React application simulating an e-commerce platform for a p
 ## 🚀 Features
 
 -   **Browse Pets**: View available pets with generated images and prices.
+-   **Universal Search**: Instantly search for pets by name with real-time filtering.
 -   **Advanced Filtering**: Filter pets by status (Available, Pending, Sold) and price range.
+-   **Wishlist (Mocked Demo)**: A demonstration of "Frontend-First" development where the UI works (using Playwright mocks) even without backend API support.
 -   **Cart System**: Add pets to cart, manage quantities, and review order.
 -   **Checkout Flow**: Simulated checkout process with user data pre-filling for registered users.
 -   **Authentication**: Simulated login/registration system (persisted via LocalStorage).

@@ -21,7 +21,7 @@ export class HomePage extends BasePage {
     this.availableFilter = page.getByRole('checkbox', { name: /available/i });
     this.pendingFilter = page.getByRole('checkbox', { name: /pending/i });
     this.soldFilter = page.getByRole('checkbox', { name: /sold/i });
-    this.searchInput = page.getByPlaceholder('Search pets...'); // Likely unused/incorrect
+    this.searchInput = page.getByPlaceholder('Search pets...');
     
     this.tagsModeButton = page.getByRole('button', { name: 'Tags' });
     this.statusModeButton = page.getByRole('button', { name: 'Status' });

@@ -21,19 +21,20 @@ The application follows a standard React Single Page Application (SPA) flow.
 ### 2. Fetching & Displaying Pets (HomePage)
 1.  **Component Mount**: `HomePage` mounts.
 2.  **Hook Execution**: Calls `useQuery` with a key like `['pets', status]`.
-3.  **API Call**: The query function uses `client.GET('/pet/findByStatus')` (from `openapi-fetch`).
-4.  **Data Processing**:
-    -   Response is validated against the generated schema.
-    -   `getPetImage` and `getPetPrice` (utils) add missing visual data.
-    -   `Number.isSafeInteger` filters out invalid IDs.
+3.  **API Call**: The query function uses `client.GET('/pet/findByStatus')`.
+4.  **Filtering**:
+    -   **Search**: Client-side filtering by name (case-insensitive).
+    -   **Price**: Client-side filtering by price range.
+    -   **Safety**: `Number.isSafeInteger` filters out invalid IDs.
 5.  **Rendering**: The `PetGrid` renders the list of pets.
 
-### 3. Adding to Cart
-1.  **User Action**: User clicks "Add to Cart" on a `PetCard`.
-2.  **Context Update**: `useCart` hook's `addToCart` function is called.
-3.  **State Change**: The `CartContext` state updates, adding the item.
-4.  **Persistence**: The `CartProvider`'s `useEffect` detects the state change and writes the new cart to `localStorage`.
-5.  **UI Feedback**: The Header cart counter updates automatically (reactively).
+### 3. Adding to Cart & Wishlist
+1.  **Cart Action**: User clicks "Add to Cart". `useCart` updates `CartContext` and syncs to `localStorage`.
+2.  **Wishlist Action (Mocked)**:
+    -   User clicks the Heart icon.
+    -   `useWishlist` hook attempts to call `POST /user/wishlist/{id}`.
+    -   **Real App**: Fails gracefully (API doesn't exist).
+    -   **Test Environment**: Playwright intercepts the call and returns `200 OK`, allowing us to verify the UI interaction.
 
 ### 4. Checkout Process
 1.  **User Action**: User submits the form on `CheckoutPage`.

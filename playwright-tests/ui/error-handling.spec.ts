@@ -19,7 +19,6 @@ test.describe('Error Handling & Edge Cases (Mocked)', () => {
     });
 
     await homePage.goto();
-    // await page.waitForLoadState('networkidle'); // Removed to prevent timeouts
     
     // Check for error message in UI
     await expect(page.getByTestId('pet-grid-error')).toBeVisible();
@@ -40,9 +39,7 @@ test.describe('Error Handling & Edge Cases (Mocked)', () => {
     await page.route('**/*.jpg', route => route.fulfill({ status: 200, contentType: 'image/jpeg', body: Buffer.from('') }));
 
     await homePage.goto();
-    // await page.waitForLoadState('networkidle'); // Removed to prevent timeouts
     
-    // Based on PetGrid.tsx: "No pets found"
     await expect(page.getByTestId('pet-grid-empty')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'No pets found' })).toBeVisible();
   });

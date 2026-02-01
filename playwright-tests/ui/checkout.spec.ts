@@ -41,7 +41,7 @@ test.describe('Checkout Flow UI Tests', () => {
     // 1. Add to cart
     await homePage.addToCart('Buddy');
     
-    // 2. Go to Cart (assuming header link)
+    // 2. Go to Cart 
     await page.getByRole('link', { name: /cart/i }).click();
     await expect(page).toHaveURL('/cart');
 
@@ -66,9 +66,7 @@ test.describe('Checkout Flow UI Tests', () => {
     await checkoutPage.submitOrder();
     
     // 6. Verify Success
-    // Ensure no error toast appeared
     await expect(page.getByText('Failed to place order')).not.toBeVisible();
-    
     // Check for success message
     await expect(page.getByRole('heading', { name: 'Order Confirmed!' })).toBeVisible({ timeout: 15000 });
   });

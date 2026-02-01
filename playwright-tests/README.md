@@ -65,11 +65,12 @@ We use the POM pattern to encapsulate page-specific logic and selectors. This ma
 -   **`BasePage`**: Contains common methods like `navigate` and `waitForUrl`.
 -   **Specific Pages**: Extend `BasePage` and expose high-level actions like `addToCart` or `fillForm`.
 
-### 2. Network Mocking
+### 2. Network Mocking & Frontend-First Dev
 UI tests (`ui/`) use `page.route()` to intercept network requests. This ensures:
 -   **Determinism**: Tests always receive the same data (from `fixtures/mock-data.ts`).
 -   **Speed**: No real network calls to the backend.
 -   **Isolation**: UI tests pass even if the backend is down.
+-   **Frontend-First**: See `wishlist.spec.ts` for an example of testing a feature (Wishlist) where the backend endpoints *don't exist yet*. We mock the success responses to verify the UI logic before the API is ready.
 
 ### 3. Zod Schema Validation & Negative Testing
 API tests (`api/`) use **Zod** to validate the structure of API responses.

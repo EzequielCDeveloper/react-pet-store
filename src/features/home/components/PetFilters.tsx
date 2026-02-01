@@ -3,6 +3,8 @@ import { Search } from 'lucide-react';
 type Status = 'available' | 'pending' | 'sold';
 
 interface PetFiltersProps {
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
   selectedStatuses: Status[];
   onStatusChange: (status: Status) => void;
   tagsInput: string;
@@ -18,6 +20,8 @@ interface PetFiltersProps {
 }
 
 export const PetFilters = ({
+  searchQuery,
+  onSearchChange,
   selectedStatuses,
   onStatusChange,
   tagsInput,
@@ -33,6 +37,20 @@ export const PetFilters = ({
 }: PetFiltersProps) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 space-y-8">
+      <div>
+        <h3 className="text-lg font-bold text-gray-900 mb-4">Search</h3>
+        <div className="relative">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Search pets..."
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+          />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+        </div>
+      </div>
+
       <div>
         <h3 className="text-lg font-bold text-gray-900 mb-4">Filter By</h3>
         <div className="flex rounded-md shadow-sm mb-6" role="group">

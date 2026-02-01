@@ -10,6 +10,7 @@ type Status = 'available' | 'pending' | 'sold';
 export const HomePage = () => {
   const api = useApi();
   const [mode, setMode] = useState<'status' | 'tags'>('status');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatuses, setSelectedStatuses] = useState<Status[]>(['available']);
   const [tagsInput, setTagsInput] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
@@ -47,12 +48,13 @@ export const HomePage = () => {
 
   const rawPets = mode === 'status' ? petsByStatus : petsByTags;
   
-  // Filter out pets with unsafe integer IDs AND filter by price
+  // Filter out pets with unsafe integer IDs AND filter by price AND filter by search query
   const pets = rawPets?.filter(pet => 
     pet.id !== undefined && 
     Number.isSafeInteger(pet.id) &&
     getPetPrice(pet.id) >= minPrice &&
-    getPetPrice(pet.id) <= maxPrice
+    getPetPrice(pet.id) <= maxPrice &&
+    (searchQuery === '' || pet.name?.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const isLoading = mode === 'status' ? isLoadingStatus : isLoadingTags;
@@ -87,6 +89,8 @@ export const HomePage = () => {
       {/* Left Sidebar - Filters */}
       <aside className="w-full md:w-64 flex-shrink-0">
         <PetFilters 
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
           selectedStatuses={selectedStatuses}
           onStatusChange={handleStatusChange}
           tagsInput={tagsInput}
