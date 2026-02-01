@@ -1,5 +1,7 @@
 # Pet Store Application
 
+[![Build and Run Playwright Tests](https://github.com/Hemanthshiva/react-pet-store/actions/workflows/build-and-test.yml/badge.svg?branch=main)](https://github.com/Hemanthshiva/react-pet-store/actions/workflows/build-and-test.yml)
+
 A modern, responsive React application simulating an e-commerce platform for a pet store. This project is built with React 19, TypeScript, and Vite, demonstrating modern frontend best practices including feature-based architecture, server state management with React Query, and strict type safety.
 
 ## 🚀 Features
