@@ -8,11 +8,11 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html', { open: 'never' }]],
-  outputDir: 'playwright-report/test-results',
+  outputDir: 'test-results',
 
   use: {
     baseURL: 'http://localhost:4173',
-    headless: false,
+    headless: !!process.env.CI,
     trace: 'on-first-retry',
   },
 
