@@ -7,13 +7,19 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependency directories
 node_modules
 dist
 dist-ssr
 coverage
 *.local
+.env
+.env.*
 junit.xml
 test-results
+playwright-report
+blob-report
+playwright/.cache/
 
 # Editor directories and files
 .vscode/*

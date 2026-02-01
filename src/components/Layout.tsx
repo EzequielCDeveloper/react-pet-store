@@ -23,7 +23,7 @@ export const Layout = () => {
             {/* Right Actions */}
             <div className="flex items-center space-x-4">
               {/* Cart */}
-              <Link to="/cart" className="p-2 text-gray-500 hover:text-blue-600 transition-colors relative group">
+              <Link to="/cart" className="p-2 text-gray-500 hover:text-blue-600 transition-colors relative group" aria-label="Cart">
                 <ShoppingCart size={24} className="group-hover:scale-110 transition-transform" />
                 {itemCount > 0 && (
                   <span className="absolute top-0 right-0 h-5 w-5 bg-red-500 rounded-full text-xs font-bold text-white flex items-center justify-center shadow-sm">

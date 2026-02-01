@@ -18,11 +18,14 @@ export const HomePage = () => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(200);
 
+  // Sort statuses to ensure consistent API calls and cache keys regardless of selection order
+  const sortedStatuses = [...selectedStatuses].sort();
+
   const { data: petsByStatus, isLoading: isLoadingStatus, error: errorStatus } = useQuery({
-    queryKey: ['pets', 'status', selectedStatuses],
+    queryKey: ['pets', 'status', sortedStatuses],
     queryFn: async () => {
       const { data, error } = await api.GET("/pet/findByStatus", {
-        params: { query: { status: selectedStatuses } }
+        params: { query: { status: sortedStatuses } }
       });
       if (error) throw error;
       return data;

@@ -35,10 +35,16 @@ export const PetCard = ({ pet }: PetCardProps) => {
   };
 
   return (
-    <Link 
-      to={`/pets/${pet.id}`}
-      className="block bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden border border-gray-200 flex flex-col h-full group"
+    <div 
+      role="article"
+      className="block bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden border border-gray-200 flex flex-col h-full group relative"
     >
+      <Link 
+        to={`/pets/${pet.id}`}
+        className="absolute inset-0 z-0"
+      >
+        <span className="sr-only">View {pet.name}</span>
+      </Link>
       <div className="h-48 bg-gray-200 relative overflow-hidden">
         <img 
           src={imageUrl} 
@@ -51,7 +57,9 @@ export const PetCard = ({ pet }: PetCardProps) => {
           }}
         />
         <div className="absolute top-2 right-2">
-          <span className={clsx(
+          <span 
+            role="status"
+            className={clsx(
             "px-2 py-1 text-xs font-semibold rounded-full uppercase shadow-sm",
             statusColors[pet.status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'
           )}>
@@ -82,7 +90,7 @@ export const PetCard = ({ pet }: PetCardProps) => {
           )}
         </div>
 
-        <div className="mt-auto">
+        <div className="mt-auto relative z-10">
           {pet.status === 'available' ? (
             <button
               onClick={handleAddToCart}
@@ -108,7 +116,7 @@ export const PetCard = ({ pet }: PetCardProps) => {
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

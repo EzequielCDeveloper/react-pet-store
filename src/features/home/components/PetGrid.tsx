@@ -12,7 +12,7 @@ interface PetGridProps {
 export const PetGrid = ({ pets, isLoading, error }: PetGridProps) => {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div data-testid="pet-grid-loading" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {[...Array(8)].map((_, i) => (
           <div key={i} className="bg-white rounded-lg shadow-sm border border-gray-100 h-80 animate-pulse">
             <div className="h-48 bg-gray-200 rounded-t-lg" />
@@ -28,7 +28,7 @@ export const PetGrid = ({ pets, isLoading, error }: PetGridProps) => {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center">
+      <div data-testid="pet-grid-error" className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center">
         <p>Error loading pets. Please check your connection or try again later.</p>
       </div>
     );
@@ -36,7 +36,7 @@ export const PetGrid = ({ pets, isLoading, error }: PetGridProps) => {
 
   if (!pets || pets.length === 0) {
     return (
-      <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-100">
+      <div data-testid="pet-grid-empty" className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-100">
         <div className="text-gray-400 mb-4">
           <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -49,7 +49,7 @@ export const PetGrid = ({ pets, isLoading, error }: PetGridProps) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div data-testid="pet-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {pets.map((pet, index) => (
         <PetCard key={`${pet.id}-${index}`} pet={pet} />
       ))}

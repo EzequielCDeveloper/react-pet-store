@@ -46,7 +46,9 @@ const ToastItem = ({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
   };
 
   return (
-    <div className={clsx(
+    <div 
+      role="status"
+      className={clsx(
       "flex items-center gap-3 px-4 py-3 rounded-lg shadow-md border min-w-[300px] animate-in slide-in-from-right",
       bgColors[toast.type]
     )}>
