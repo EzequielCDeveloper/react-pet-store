@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import type { components } from '../../../api/schema';
 import clsx from 'clsx';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Heart } from 'lucide-react';
 import { getPetImage, getPetPrice } from '../../../lib/pet-utils';
 import { useCart } from '../../../hooks/useCart';
 import { useToast } from '../../../hooks/useToast';
+import { useWishlist } from '../../../hooks/useWishlist';
 
 type Pet = components["schemas"]["Pet"];
 
@@ -22,16 +23,27 @@ const statusColors = {
 export const PetCard = ({ pet }: PetCardProps) => {
   const { addToCart } = useCart();
   const { addToast } = useToast();
+  const { wishlistIds, toggleFavorite } = useWishlist();
+  
   // Use generated image as primary to ensure consistent visual style, 
   // or fallback to API url if needed. For this task, user wants images for all tiles.
   const imageUrl = getPetImage(pet.id);
   const price = getPetPrice(pet.id);
+  const petId = pet.id ?? 0;
+  const isFavorite = wishlistIds.includes(petId);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(pet);
     addToast('Added to cart!', 'success');
+  };
+
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (petId === 0) return;
+    toggleFavorite(petId);
   };
 
   return (
@@ -56,6 +68,19 @@ export const PetCard = ({ pet }: PetCardProps) => {
             (e.target as HTMLImageElement).src = 'https://placehold.co/400x300?text=No+Image';
           }}
         />
+        <button
+          onClick={handleToggleFavorite}
+          className="absolute top-2 left-2 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-all z-10"
+          aria-label={isFavorite ? `Remove ${pet.name} from favorites` : `Add ${pet.name} to favorites`}
+          data-testid={`favorite-btn-${pet.id}`}
+        >
+          <Heart 
+            className={clsx(
+              "w-5 h-5 transition-colors", 
+              isFavorite ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-gray-600"
+            )} 
+          />
+        </button>
         <div className="absolute top-2 right-2">
           <span 
             role="status"
