@@ -6,48 +6,7 @@ This document provides a visual overview of the application's entry point and da
 
 The application follows a standard React Single Page Application (SPA) flow.
 
-```mermaid
-graph TD
-    subgraph Entry ["Entry Point (src/main.tsx)"]
-        Main[ReactDOM.createRoot] --> Providers[AppProviders Wrapper]
-    end
-
-    subgraph Context ["Global State & Providers"]
-        Providers --> QC[QueryClientProvider]
-        Providers --> CP[CartProvider]
-        Providers --> TP[ToastProvider]
-        Providers --> SP[SettingsProvider]
-    end
-
-    subgraph Router ["Routing (src/App.tsx)"]
-        QC --> AppRouter[React Router]
-        AppRouter --> Layout[Layout Component]
-        Layout --> Outlet[Page Content]
-    end
-
-    subgraph Pages ["Feature Pages"]
-        Outlet --> Home[HomePage]
-        Outlet --> PetDetail[PetDetailPage]
-        Outlet --> Cart[CartPage]
-        Outlet --> Checkout[CheckoutPage]
-        Outlet --> Login[LoginPage]
-    end
-
-    subgraph Data ["Data Sources"]
-        Home -.-> |useApi & useQuery| SwaggerAPI[(Swagger Petstore API)]
-        PetDetail -.-> |useApi & useQuery| SwaggerAPI
-        Cart -.-> |useCart| LocalStorage[(LocalStorage)]
-        Login -.-> |useAuth| LocalStorage
-        Checkout -.-> |useApi & useCart| SwaggerAPI
-    end
-
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef primary fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px;
-
-    class Main,Providers primary;
-    class SwaggerAPI,LocalStorage storage;
-```
+![Application Architecture](./docs/assets/application-architecture.png)
 
 ## 🔄 Detailed Data Flow Scenarios
 
