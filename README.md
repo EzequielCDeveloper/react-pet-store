@@ -22,7 +22,10 @@ A modern, responsive React application simulating an e-commerce platform for a p
 -   **Styling**: Tailwind CSS, `clsx`, `tailwind-merge`
 -   **Forms**: React Hook Form, Zod validation
 -   **API Client**: `openapi-fetch` (strictly typed against Swagger schema)
--   **Testing**: Vitest, React Testing Library, MSW (Mock Service Worker)
+-   **Testing**: 
+    -   Unit/Integration: Vitest, React Testing Library, MSW
+    -   End-to-End: Playwright (with Zod schema validation)
+-   **CI/CD**: GitHub Actions
 -   **Icons**: Lucide React
 
 ## 🏁 Getting Started
@@ -45,6 +48,11 @@ A modern, responsive React application simulating an e-commerce platform for a p
     npm install
     ```
 
+3.  Install Playwright browsers (if running E2E tests):
+    ```bash
+    npx playwright install
+    ```
+
 ### Running Locally
 
 Start the development server:
@@ -55,9 +63,24 @@ The application will be available at `http://localhost:5173`.
 
 ### Running Tests
 
-Execute the test suite (Unit & Integration):
+**Unit & Integration Tests (Vitest)**:
 ```bash
 npm run test
+```
+
+**End-to-End & API Tests (Playwright)**:
+```bash
+# Run all tests (headless)
+npx playwright test
+
+# Run UI tests only
+npx playwright test ui/
+
+# Run API tests only
+npx playwright test api/
+
+# View HTML report
+npx playwright show-report
 ```
 
 Run linting:
