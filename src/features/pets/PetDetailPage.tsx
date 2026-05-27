@@ -4,13 +4,106 @@ import { useApi } from '../../api/client';
 import { PetForm } from './components/PetForm';
 import type { components } from '../../api/schema';
 import { queryClient } from '../../lib/query-client';
-import { useState } from 'react';
-import { Trash2, Upload, ArrowLeft, ShoppingCart } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Trash2, Upload, ArrowLeft, ShoppingCart, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import clsx from 'clsx';
 import { useToast } from '../../hooks/useToast';
 import { useCart } from '../../hooks/useCart';
 import { getPetImage, getPetPrice } from '../../lib/pet-utils';
+import Skeleton from '../../components/Skeleton';
 
 type Pet = components["schemas"]["Pet"];
+
+function PetImageCarousel({ pet }: { readonly pet: Pet }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  if (!pet.photoUrls || pet.photoUrls.length <= 1) {
+    return (
+      <div className="md:flex-shrink-0 md:w-1/3 bg-gray-200">
+        <img
+          src={pet.photoUrls?.[0] || getPetImage(pet.id)}
+          alt={pet.name}
+          className="h-full w-full object-cover h-64 md:h-96 rounded-lg"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = 'https://placehold.co/400x300?text=No+Image';
+          }}
+        />
+      </div>
+    );
+  }
+
+  const images = pet.photoUrls.length > 1
+    ? pet.photoUrls
+    : [getPetImage(pet.id, 0), getPetImage(pet.id, 1), getPetImage(pet.id, 2), getPetImage(pet.id, 3)];
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) handleNext();
+      else handlePrev();
+    }
+    touchStartX.current = null;
+  };
+
+  return (
+    <div className="md:flex-shrink-0 md:w-1/3 relative">
+      <div
+        className="relative overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <img
+          src={images[currentIndex]}
+          alt={`${pet.name} ${currentIndex + 1}`}
+          className="w-full h-64 md:h-96 object-cover rounded-lg"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = 'https://placehold.co/400x300?text=No+Image';
+          }}
+        />
+        <button
+          onClick={handlePrev}
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-colors"
+          aria-label="Previous image"
+        >
+          <ChevronLeft size={24} className="text-gray-700" />
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-colors"
+          aria-label="Next image"
+        >
+          <ChevronRight size={24} className="text-gray-700" />
+        </button>
+      </div>
+      <div className="flex justify-center gap-2 mt-3">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            className={`w-2.5 h-2.5 rounded-full transition-colors ${
+              idx === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
+            }`}
+            aria-label={`Image ${idx + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export const PetDetailPage = () => {
   const { petId } = useParams<{ petId: string }>();
@@ -93,12 +186,15 @@ export const PetDetailPage = () => {
     }
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton variant="detail" />;
+  }
   if (error) {
     return (
-      <div className="text-center py-12">
+      <div className="py-12 text-center">
+        <Search className="mx-auto h-16 w-16 text-gray-400 mb-4" />
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Pet Not Found</h2>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-500 mb-6">
           The pet you are looking for does not exist or the ID is invalid.
         </p>
         <button 
@@ -146,20 +242,15 @@ export const PetDetailPage = () => {
 
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="md:flex">
-          <div className="md:flex-shrink-0 md:w-1/3 bg-gray-200">
-             <img 
-               src={getPetImage(pet.id)} 
-               alt={pet.name} 
-               className="h-full w-full object-cover"
-               onError={(e) => {
-                 (e.target as HTMLImageElement).src = 'https://placehold.co/400x300?text=No+Image';
-               }}
-             />
-          </div>
+          <PetImageCarousel pet={pet} />
           <div className="p-8 w-full">
             <div className="flex justify-between items-start">
               <div>
-                <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{pet.status}</div>
+                <div className={clsx("uppercase tracking-wide text-sm font-semibold",
+                  pet.status === 'available' ? 'text-green-600' :
+                  pet.status === 'pending' ? 'text-amber-600' :
+                  'text-red-600'
+                )}>{pet.status}</div>
                 <h1 className="block mt-1 text-3xl leading-tight font-bold text-black">{pet.name}</h1>
                 <p className="mt-2 text-gray-500">Category: {pet.category?.name || 'None'}</p>
                 <div className="mt-4 flex items-center space-x-4">

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useApi } from '../../api/client';
-import { LogIn, LogOut, UserPlus } from 'lucide-react';
+import { LogIn, LogOut, PawPrint, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../hooks/useToast';
 
@@ -24,6 +24,8 @@ export const LoginPage = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem('petstore_user'));
   const [sessionInfo, setSessionInfo] = useState<string>(() => localStorage.getItem('petstore_user') ? "Session active (local simulation)" : '');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRegPassword, setShowRegPassword] = useState(false);
 
   const loginMutation = useMutation({
     mutationFn: async () => {
@@ -103,7 +105,7 @@ export const LoginPage = () => {
 
   if (isLoggedIn) {
     return (
-      <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-sm border border-gray-100 text-center space-y-6 mt-10">
+      <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg border border-gray-100 text-center space-y-6 mt-10">
         <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
           <LogIn size={32} />
         </div>
@@ -123,15 +125,18 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg border border-gray-100 mt-10">
+    <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 px-4 py-12">
+    <div className="max-w-md w-full mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-200 mt-10 sm:mt-0">
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
-          <div className="p-3 bg-blue-50 rounded-full text-blue-600">
-            {isLoginMode ? <LogIn size={32} /> : <UserPlus size={32} />}
+          <div className="p-4 bg-blue-50 rounded-full text-blue-600">
+            <PawPrint size={36} />
           </div>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">{isLoginMode ? 'Welcome Back' : 'Create Account'}</h1>
-        <p className="text-gray-500 mt-2">
+        <div className="flex justify-center mb-3">
+          <h1 className="text-2xl font-bold text-gray-900">{isLoginMode ? 'Welcome Back' : 'Create Account'}</h1>
+        </div>
+        <p className="text-gray-500 text-sm">
           {isLoginMode ? 'Enter your credentials to access your account' : 'Join us to manage your pets'}
         </p>
       </div>
@@ -177,23 +182,43 @@ export const LoginPage = () => {
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="Enter your password"
-              required
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                placeholder="Enter your password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
           </div>
           <button
             type="submit"
             disabled={loginMutation.isPending}
-            className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all min-h-[44px]"
           >
             {loginMutation.isPending ? 'Signing in...' : 'Sign In'}
           </button>
+          <p className="text-center text-sm text-gray-500 mt-4">
+            Don&apos;t have an account?{' '}
+            <button
+              type="button"
+              onClick={() => setIsLoginMode(false)}
+              className="text-blue-600 hover:text-blue-800 font-medium"
+            >
+              Register here
+            </button>
+          </p>
         </form>
       ) : (
         <form
@@ -251,24 +276,45 @@ export const LoginPage = () => {
           </div>
           <div>
             <label htmlFor="reg-password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input
-              id="reg-password"
-              type="password"
-              value={regPassword}
-              onChange={(e) => setRegPassword(e.target.value)}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
+            <div className="relative">
+              <input
+                id="reg-password"
+                type={showRegPassword ? 'text' : 'password'}
+                value={regPassword}
+                onChange={(e) => setRegPassword(e.target.value)}
+                className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowRegPassword(!showRegPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                aria-label={showRegPassword ? 'Hide password' : 'Show password'}
+              >
+                {showRegPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
           </div>
           <button
             type="submit"
             disabled={registerMutation.isPending}
-            className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all min-h-[44px]"
           >
             {registerMutation.isPending ? 'Creating Account...' : 'Create Account'}
           </button>
+          <p className="text-center text-sm text-gray-500 mt-4">
+            Already have an account?{' '}
+            <button
+              type="button"
+              onClick={() => setIsLoginMode(true)}
+              className="text-blue-600 hover:text-blue-800 font-medium"
+            >
+              Sign in
+            </button>
+          </p>
         </form>
       )}
+    </div>
     </div>
   );
 };

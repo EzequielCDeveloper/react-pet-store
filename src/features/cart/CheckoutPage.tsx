@@ -6,7 +6,7 @@ import { useCart } from '../../hooks/useCart';
 import { useToast } from '../../hooks/useToast';
 import { Link } from 'react-router-dom';
 import { useApi } from '../../api/client';
-import { CheckCircle, AlertCircle, User } from 'lucide-react';
+import { CheckCircle, User, ShoppingBag } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
 const checkoutSchema = z.object({
@@ -104,12 +104,13 @@ export const CheckoutPage = () => {
     );
   }
 
-  if (items.length === 0) {
+  if (items.length === 0 && !isSuccess) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <AlertCircle className="mx-auto h-16 w-16 text-yellow-500 mb-4" />
+        <ShoppingBag className="mx-auto h-16 w-16 text-gray-400 mb-4" />
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-        <Link to="/" className="text-blue-600 hover:underline">Go back to shopping</Link>
+        <p className="text-gray-500 mb-6">Add some pets before checking out.</p>
+        <Link to="/" className="text-blue-600 hover:underline font-medium">Go back to shopping</Link>
       </div>
     );
   }
@@ -145,49 +146,49 @@ export const CheckoutPage = () => {
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Shipping Information</h2>
               <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                   <input
                     id="firstName"
                     {...register('firstName')}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName.message}</p>}
+                  {errors.firstName && <p className="text-sm text-red-600 mt-1">{errors.firstName.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
                   <input
                     id="lastName"
                     {...register('lastName')}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName.message}</p>}
+                  {errors.lastName && <p className="text-sm text-red-600 mt-1">{errors.lastName.message}</p>}
                 </div>
                 <div className="sm:col-span-2">
-                  <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
+                  <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">Address</label>
                   <input
                     id="address"
                     {...register('address')}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address.message}</p>}
+                  {errors.address && <p className="text-sm text-red-600 mt-1">{errors.address.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-700">City</label>
+                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">City</label>
                   <input
                     id="city"
                     {...register('city')}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city.message}</p>}
+                  {errors.city && <p className="text-sm text-red-600 mt-1">{errors.city.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="zip" className="block text-sm font-medium text-gray-700">ZIP Code</label>
+                  <label htmlFor="zip" className="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
                   <input
                     id="zip"
                     {...register('zip')}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.zip && <p className="text-red-500 text-xs mt-1">{errors.zip.message}</p>}
+                  {errors.zip && <p className="text-sm text-red-600 mt-1">{errors.zip.message}</p>}
                 </div>
               </div>
             </div>
@@ -196,43 +197,43 @@ export const CheckoutPage = () => {
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Details</h2>
               <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <label htmlFor="cardName" className="block text-sm font-medium text-gray-700">Card Name</label>
+                  <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-1">Card Name</label>
                   <input
                     id="cardName"
                     {...register('cardName')}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.cardName && <p className="text-red-500 text-xs mt-1">{errors.cardName.message}</p>}
+                  {errors.cardName && <p className="text-sm text-red-600 mt-1">{errors.cardName.message}</p>}
                 </div>
                 <div className="sm:col-span-2">
-                  <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700">Card Number</label>
+                  <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
                   <input
                     id="cardNumber"
                     {...register('cardNumber')}
                     placeholder="1234123412341234"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.cardNumber && <p className="text-red-500 text-xs mt-1">{errors.cardNumber.message}</p>}
+                  {errors.cardNumber && <p className="text-sm text-red-600 mt-1">{errors.cardNumber.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="expiry" className="block text-sm font-medium text-gray-700">Expiry Date</label>
+                  <label htmlFor="expiry" className="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
                   <input
                     id="expiry"
                     {...register('expiry')}
                     placeholder="MM/YY"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.expiry && <p className="text-red-500 text-xs mt-1">{errors.expiry.message}</p>}
+                  {errors.expiry && <p className="text-sm text-red-600 mt-1">{errors.expiry.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="cvv" className="block text-sm font-medium text-gray-700">CVV</label>
+                  <label htmlFor="cvv" className="block text-sm font-medium text-gray-700 mb-1">CVV</label>
                   <input
                     id="cvv"
                     {...register('cvv')}
                     placeholder="123"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-0 block w-full rounded-lg border border-gray-300 shadow-sm p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {errors.cvv && <p className="text-red-500 text-xs mt-1">{errors.cvv.message}</p>}
+                  {errors.cvv && <p className="text-sm text-red-600 mt-1">{errors.cvv.message}</p>}
                 </div>
               </div>
             </div>

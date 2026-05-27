@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetStore - The Sophisticated Caretaker</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#006c4a",
+                    "tertiary-fixed-dim": "#fabd22",
+                    "on-primary-fixed-variant": "#7b2f00",
+                    "on-surface": "#121c27",
+                    "soft-peach": "#FFF7ED",
+                    "surface-bright": "#f7f9ff",
+                    "primary-container": "#f26d21",
+                    "inverse-surface": "#27313c",
+                    "tertiary-fixed": "#ffdea1",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#d1dbea",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#521d00",
+                    "surface-tint": "#a14000",
+                    "inverse-on-surface": "#e9f1ff",
+                    "outline": "#8c7166",
+                    "surface-container-high": "#dfe9f8",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#e0c0b2",
+                    "on-secondary-container": "#00714e",
+                    "background": "#f7f9ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#261900",
+                    "on-background": "#121c27",
+                    "success-emerald": "#10B981",
+                    "background-subtle": "#F9FAFB",
+                    "inverse-primary": "#ffb694",
+                    "secondary-fixed-dim": "#68dba9",
+                    "surface-container": "#e4effe",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#795900",
+                    "on-secondary-fixed-variant": "#005137",
+                    "on-primary-fixed": "#351000",
+                    "surface-container-highest": "#d9e3f2",
+                    "tertiary-container": "#be8d00",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#584238",
+                    "primary-fixed": "#ffdbcc",
+                    "surface-white": "#FFFFFF",
+                    "surface": "#f7f9ff",
+                    "surface-container-low": "#eef4ff",
+                    "on-tertiary-container": "#3d2b00",
+                    "primary": "#a14000",
+                    "secondary-fixed": "#85f8c4",
+                    "secondary-container": "#82f5c1",
+                    "surface-variant": "#d9e3f2",
+                    "primary-fixed-dim": "#ffb694",
+                    "on-secondary-fixed": "#002114"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px",
+                    "2xl": "1.5rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "stack-xl": "64px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                    "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "label-sm": ["12px", { "lineHeight": "14px", "fontWeight": "500" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                    "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                    "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+            },
+            boxShadow: {
+              'ambient': '0 10px 40px -10px rgba(0,0,0,0.08)',
+              'glow': '0 8px 24px -4px rgba(242, 109, 33, 0.25)',
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-subtle text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- Header (TopAppBar) -->
+<header class="bg-surface/80 dark:bg-on-surface/80 backdrop-blur-md shadow-sm docked full-width top-0 sticky z-50 border-b border-outline-variant/10">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-container-max mx-auto h-20">
+<!-- Leading: Mobile Menu / Icon -->
+<button aria-label="Menu" class="md:hidden text-primary dark:text-primary-fixed-dim hover:text-primary-container transition-colors duration-200">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+<div class="hidden md:flex items-center text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<!-- Brand Logo -->
+<a class="text-headline-md font-headline-md font-bold text-primary-container dark:text-primary-fixed tracking-tight active:scale-95 transition-transform duration-150" href="#">
+                PetStore
+            </a>
+<!-- Search (Desktop) -->
+<div class="hidden md:flex items-center flex-1 max-w-md mx-8 relative">
+<span class="material-symbols-outlined absolute left-3 text-outline-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-white border border-outline-variant/30 rounded-full text-body-sm font-body-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="Buscar productos..." type="text"/>
+</div>
+<!-- Trailing: Search (Mobile) & Cart -->
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed-dim">
+<button aria-label="Search" class="md:hidden hover:text-primary-container transition-colors duration-200">
+<span class="material-symbols-outlined text-[24px]">search</span>
+</button>
+<button aria-label="Shopping Cart" class="relative hover:text-primary-container transition-colors duration-200 active:scale-95">
+<span class="material-symbols-outlined text-[24px]">shopping_cart</span>
+<span class="absolute -top-1 -right-2 bg-primary-container text-on-primary text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+</button>
+</div>
+</div>
+<!-- Mobile Navigation Row (Hidden on Desktop) -->
+<nav class="md:hidden flex overflow-x-auto hide-scrollbar px-margin-mobile py-2 gap-6 bg-surface-white border-t border-outline-variant/10">
+<a class="text-primary-container font-bold border-b-2 border-primary-container pb-1 whitespace-nowrap text-label-md font-label-md" href="#">Inicio</a>
+<a class="text-on-surface-variant font-label-md whitespace-nowrap text-label-md" href="#">Categorías</a>
+<a class="text-on-surface-variant font-label-md whitespace-nowrap text-label-md" href="#">Ofertas</a>
+</nav>
+<!-- Desktop Navigation Row -->
+<nav class="hidden md:flex justify-center gap-8 py-3 bg-surface-white border-t border-outline-variant/10 shadow-sm">
+<a class="text-primary-container font-bold border-b-2 border-primary-container pb-1 text-label-md font-label-md hover:text-primary-container transition-colors duration-200" href="#">Inicio</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Perros</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Gatos</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Ofertas</a>
+</nav>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="bg-soft-peach px-margin-mobile md:px-gutter py-stack-xl flex flex-col md:flex-row items-center justify-between max-w-container-max mx-auto overflow-hidden">
+<div class="max-w-xl z-10 space-y-stack-md text-center md:text-left mb-8 md:mb-0">
+<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg-mobile md:font-display-lg text-on-surface">
+                    Todo lo que tu mascota necesita
+                </h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">
+                    Calidad y amor en cada producto para tus mejores amigos. Descubre nuestra selección premium.
+                </p>
+<button class="bg-primary-container text-on-primary px-8 py-3 rounded-lg font-label-md text-label-md shadow-glow hover:-translate-y-1 hover:shadow-ambient transition-all duration-300">
+                    Comprar Ahora
+                </button>
+</div>
+<div class="relative w-full max-w-md md:max-w-lg aspect-square">
+<!-- Decorative background shape -->
+<div class="absolute inset-0 bg-tertiary-fixed rounded-full blur-3xl opacity-50 transform scale-90 translate-y-8"></div>
+<img alt="Happy dog looking at camera" class="relative z-10 w-full h-full object-cover rounded-[3rem] shadow-ambient border-4 border-surface-white" data-alt="A high-quality, bright photograph of a happy Golden Retriever looking directly at the camera with a playful expression. The dog is set against a clean, warm studio background that perfectly matches a modern light-mode e-commerce aesthetic. The lighting is soft and inviting, emphasizing the premium quality of the pet store brand. Warm orange and soft neutral tones dominate the composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZIxvDNxNey22KJo9OyQClRrmBIhZFb7M5gkNVOY_tSiL1SK1uKXg10V789eJ9c62_5pvhYkQECZaiNgbymTb8msi_ZAwmp-_u1rJYDEHFF9617ZCw5YQ6Fq7Zq6zNas66H1g8y0nSHoGs9P7ocPQWRtGQGHvg6V--lRaSyI7igDx8jVxynmQpFNXVtbzFIvpQFkOC9iRg-qxw16m2cTtmpaSVVrWCKP0vrn8PLvVxE8AKjCJ-7YYiNzgSpFlsLXyF7ZJShrLiyWQ"/>
+</div>
+</section>
+<!-- Shop by Category -->
+<section class="py-stack-xl px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-stack-md">Compra por Categoría</h2>
+<div class="flex overflow-x-auto hide-scrollbar gap-6 pb-4 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0 snap-x">
+<!-- Category Item -->
+<a class="flex flex-col items-center gap-3 min-w-[100px] snap-center group" href="#">
+<div class="w-20 h-20 rounded-full bg-surface-white shadow-sm flex items-center justify-center border border-outline-variant/20 group-hover:border-primary-container group-hover:shadow-ambient transition-all duration-300 group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant group-hover:text-primary-container transition-colors">Perros</span>
+</a>
+<!-- Category Item -->
+<a class="flex flex-col items-center gap-3 min-w-[100px] snap-center group" href="#">
+<div class="w-20 h-20 rounded-full bg-surface-white shadow-sm flex items-center justify-center border border-outline-variant/20 group-hover:border-primary-container group-hover:shadow-ambient transition-all duration-300 group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant group-hover:text-primary-container transition-colors">Gatos</span>
+</a>
+<!-- Category Item -->
+<a class="flex flex-col items-center gap-3 min-w-[100px] snap-center group" href="#">
+<div class="w-20 h-20 rounded-full bg-surface-white shadow-sm flex items-center justify-center border border-outline-variant/20 group-hover:border-primary-container group-hover:shadow-ambient transition-all duration-300 group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 1;">cruelty_free</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant group-hover:text-primary-container transition-colors">Pájaros</span>
+</a>
+<!-- Category Item -->
+<a class="flex flex-col items-center gap-3 min-w-[100px] snap-center group" href="#">
+<div class="w-20 h-20 rounded-full bg-surface-white shadow-sm flex items-center justify-center border border-outline-variant/20 group-hover:border-primary-container group-hover:shadow-ambient transition-all duration-300 group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 1;">set_meal</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant group-hover:text-primary-container transition-colors">Peces</span>
+</a>
+<!-- Category Item -->
+<a class="flex flex-col items-center gap-3 min-w-[100px] snap-center group" href="#">
+<div class="w-20 h-20 rounded-full bg-surface-white shadow-sm flex items-center justify-center border border-outline-variant/20 group-hover:border-primary-container group-hover:shadow-ambient transition-all duration-300 group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 1;">sound_detection_dog_barking</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant group-hover:text-primary-container transition-colors text-center leading-tight">Pequeñas<br/>Mascotas</span>
+</a>
+</div>
+</section>
+<!-- Featured Products -->
+<section class="py-stack-xl px-margin-mobile md:px-gutter bg-surface-white border-t border-outline-variant/10">
+<div class="max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-stack-md">
+<h2 class="text-headline-md font-headline-md text-on-surface">Productos Destacados</h2>
+<a class="text-label-md font-label-md text-primary-container hover:underline hidden md:block" href="#">Ver todos</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Product Card 1 -->
+<div class="bg-surface-white rounded-2xl border border-outline-variant/20 p-4 shadow-sm hover:shadow-ambient hover:-translate-y-1 transition-all duration-300 flex flex-col group relative">
+<button class="absolute top-4 right-4 z-10 w-8 h-8 bg-surface-white rounded-full flex items-center justify-center shadow-sm text-outline-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="aspect-square rounded-xl bg-background-subtle mb-4 overflow-hidden relative">
+<img alt="Dog Food" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A premium bag of adult dog food elegantly styled on a clean, light gray surface. The scene is brightly lit with soft, diffused white light, emphasizing the high-quality packaging and modern corporate aesthetic. Warm orange accents in the background hint at the brand colors, while the composition remains spacious and uncluttered." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADijqR5lSku1keMSTUUj7-3uOH1ri14SkjoHWFNvjT5aZK2FtN2d_H09vPEAEgnduBXNMkGGA8_FFnNQCK3HhZYDW-Yz5-4_UOn2yhh6a1xToDeGec0-bcFht-86pGHG0bVi4zFBqDgs8QA67hvFJkIFt5K8KRTjJRq9pmZZ_3ABXU_7itEM5XgFa8KCZ9Di_l4HuZhZEDo5X5uLUUw-w3hINJSNS18531SrQpFTNNr0a78mIl63M2Ggrwm0AaoH5kc5ZAHlXOeVc"/>
+</div>
+<div class="flex-1 flex flex-col">
+<span class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Alimentos</span>
+<h3 class="text-body-md font-body-md font-semibold text-on-surface mb-1 line-clamp-2">Pienso Premium Adultos</h3>
+<div class="flex items-center text-tertiary-fixed-dim mb-3">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="mt-auto flex items-center justify-between pt-2">
+<span class="text-headline-sm font-headline-sm text-on-surface">$24.99</span>
+<button class="w-10 h-10 rounded-full bg-surface-container text-secondary hover:bg-secondary hover:text-on-secondary transition-colors flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-white rounded-2xl border border-outline-variant/20 p-4 shadow-sm hover:shadow-ambient hover:-translate-y-1 transition-all duration-300 flex flex-col group relative">
+<button class="absolute top-4 right-4 z-10 w-8 h-8 bg-surface-white rounded-full flex items-center justify-center shadow-sm text-outline-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="aspect-square rounded-xl bg-background-subtle mb-4 overflow-hidden relative">
+<img alt="Dog Toy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A colorful interactive dog chew toy resting on a pristine white surface. The lighting is bright and modern, creating soft, ambient shadows that give the toy a playful yet premium feel. Emerald green details on the toy pop against the minimalist background, aligning perfectly with a high-end pet retail style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc3q-sXXxymtc1OGetPPPKQKrlAttKl9CV2nY9XZ8yO-9oP9maHZh_PFBcaVYDCTznsJBt39S_K5db7uKEak7A7UQHxf8a2eLMZIJ9_7MK05W2uRgbTStjXf0_pCzPV1EndnaIR-8Xk-GhVeBYDKgvtZbPJhh9GLB-alSuxCuSycKmEdFKbE5dur5l6lMq2RnsTAw7Mqx2W1ZeY7TtgflxpE0oldWqw6PiqlcoLBZ4uRnNbm8dkTPPmzfdQi_6EO72BhCrSh6aKFU"/>
+</div>
+<div class="flex-1 flex flex-col">
+<span class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Juguetes</span>
+<h3 class="text-body-md font-body-md font-semibold text-on-surface mb-1 line-clamp-2">Juguete Interactivo Mordedor</h3>
+<div class="flex items-center text-tertiary-fixed-dim mb-3">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="mt-auto flex items-center justify-between pt-2">
+<span class="text-headline-sm font-headline-sm text-on-surface">$12.50</span>
+<button class="w-10 h-10 rounded-full bg-surface-container text-secondary hover:bg-secondary hover:text-on-secondary transition-colors flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-white rounded-2xl border border-outline-variant/20 p-4 shadow-sm hover:shadow-ambient hover:-translate-y-1 transition-all duration-300 flex flex-col group relative">
+<button class="absolute top-4 right-4 z-10 w-8 h-8 bg-surface-white rounded-full flex items-center justify-center shadow-sm text-outline-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="aspect-square rounded-xl bg-background-subtle mb-4 overflow-hidden relative">
+<img alt="Cat Bed" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A plush, soft-textured cat bed positioned in a well-lit, minimalist room setting. The bed is surrounded by generous white space, enhancing the 'Sophisticated Caretaker' brand identity. Subtle lighting creates gentle, friendly geometry, while the overall aesthetic remains clean, warm, and highly professional for a premium e-commerce site." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA22Yw9ythhADLvdUKn5DvTzqPaNg27mt7jlEm4xbZ0jlHYcySslp9z9j4mv5R0qXD5gOTxOqiI5sdfkgOQqcaXQlssiHjeqIENVEsh1lar0YEwoUYE_Q8mHUSSps6W15Vkvj_L7afF1iGUyTVj46mVHmn-JcGR2yFQjxipRNiUlzrZSlVY5Au78uagcgiAwovoMbf7dkifdjpQp2mfSaL6XRYOY4KB8C4oop1YXLZvGHS0MPRrPJDNxEAkUIA7gcyL82kQRGJuAHM"/>
+</div>
+<div class="flex-1 flex flex-col">
+<span class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Camas</span>
+<h3 class="text-body-md font-body-md font-semibold text-on-surface mb-1 line-clamp-2">Cama Nube Relajante</h3>
+<div class="flex items-center text-tertiary-fixed-dim mb-3">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<div class="mt-auto flex items-center justify-between pt-2">
+<span class="text-headline-sm font-headline-sm text-on-surface">$35.00</span>
+<button class="w-10 h-10 rounded-full bg-surface-container text-secondary hover:bg-secondary hover:text-on-secondary transition-colors flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-white rounded-2xl border border-outline-variant/20 p-4 shadow-sm hover:shadow-ambient hover:-translate-y-1 transition-all duration-300 flex flex-col group relative hidden md:flex">
+<button class="absolute top-4 right-4 z-10 w-8 h-8 bg-surface-white rounded-full flex items-center justify-center shadow-sm text-outline-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="aspect-square rounded-xl bg-background-subtle mb-4 overflow-hidden relative">
+<img alt="Dog Leash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-quality, durable dog leash neatly coiled on a bright, soft neutral surface. The image uses a modern corporate photography style with crisp focus and soft minimal shadows. A subtle emerald green accent from the brand palette is incorporated into the scene, reinforcing a sense of reliable, premium pet care equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIvJkqEJdvNurvXnbzWo9XMZX1SBf9wC3WfrgT6pWNqajxfTf82Fi4ZpKu-iPTri4VyTVglQR8OkUKpsBTWIGsiHnasfu3tUsC48124a_QhJG9vQ8O7AHNWyYwAXTWWDLaBovduK7xEEaZipaZbIKv3b9RW0zerDNtizvGcvLJF5CUUPMqK135ZNu3x02PZyZPEL3iivkoB6bSX2Mj75zdxIY6iFgdehItpFoqdm-tzIIZiYOmooBejIYK47om62Ng5JJyYgx8QQ"/>
+</div>
+<div class="flex-1 flex flex-col">
+<span class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Paseo</span>
+<h3 class="text-body-md font-body-md font-semibold text-on-surface mb-1 line-clamp-2">Correa Extensible Pro</h3>
+<div class="flex items-center text-tertiary-fixed-dim mb-3">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="mt-auto flex items-center justify-between pt-2">
+<span class="text-headline-sm font-headline-sm text-on-surface">$18.99</span>
+<button class="w-10 h-10 rounded-full bg-surface-container text-secondary hover:bg-secondary hover:text-on-secondary transition-colors flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Promo Banner -->
+<section class="py-stack-lg px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+<div class="bg-secondary text-on-secondary rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between text-center md:text-left shadow-ambient relative overflow-hidden">
+<!-- Decorative Elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-fixed-dim opacity-20 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-secondary-fixed opacity-10 rounded-full blur-2xl transform -translate-x-1/2 translate-y-1/2"></div>
+<div class="z-10 mb-6 md:mb-0 max-w-xl">
+<h2 class="text-headline-md md:text-display-lg-mobile font-headline-md md:font-display-lg-mobile mb-2">¡20% de descuento en tu primera compra!</h2>
+<p class="text-body-lg font-body-lg text-secondary-fixed opacity-90">Únete a la familia PetStore y mima a tu mascota con lo mejor.</p>
+</div>
+<button class="z-10 bg-surface-white text-secondary px-8 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-bright hover:-translate-y-1 shadow-sm transition-all duration-300 whitespace-nowrap">
+                    Canjear Cupón
+                </button>
+</div>
+</section>
+</main>
+<!-- Floating Action Button (Chat) -->
+<button aria-label="Chat with an Expert" class="fixed bottom-6 right-6 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-ambient flex items-center justify-center hover:scale-105 hover:shadow-lg transition-all duration-300 z-50">
+<span class="material-symbols-outlined text-[28px]">chat</span>
+</button>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface mt-stack-lg border-t border-outline-variant/20 flat no shadows full-width">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter w-full px-margin-mobile md:px-gutter py-stack-lg max-w-container-max mx-auto">
+<!-- Brand & Newsletter -->
+<div class="md:col-span-2 space-y-4">
+<a class="text-headline-sm font-headline-sm font-bold text-primary-container flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pets</span>
+                    PetStore
+                </a>
+<p class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed max-w-sm">
+                    The Sophisticated Caretaker. Ofreciendo productos premium y consejos expertos para la salud y felicidad de tus mascotas.
+                </p>
+<form class="flex gap-2 max-w-md pt-2" onsubmit="event.preventDefault();">
+<input class="flex-1 px-4 py-2 bg-surface rounded-lg border border-outline-variant/30 text-body-sm font-body-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="Tu correo electrónico" type="email"/>
+<button class="bg-primary-container text-on-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-primary transition-colors" type="submit">
+                        Unirse
+                    </button>
+</form>
+</div>
+<!-- Links Column 1 -->
+<div class="space-y-3">
+<h4 class="text-label-md font-label-md text-on-surface font-bold mb-4">Empresa</h4>
+<a class="block text-on-surface-variant text-body-sm font-body-sm hover:text-primary-container underline transition-all focus:outline-none focus:text-primary-container" href="#">About Us</a>
+<a class="block text-on-surface-variant text-body-sm font-body-sm hover:text-primary-container underline transition-all focus:outline-none focus:text-primary-container" href="#">Contact Us</a>
+<a class="block text-on-surface-variant text-body-sm font-body-sm hover:text-primary-container underline transition-all focus:outline-none focus:text-primary-container" href="#">Blog</a>
+</div>
+<!-- Links Column 2 -->
+<div class="space-y-3">
+<h4 class="text-label-md font-label-md text-on-surface font-bold mb-4">Ayuda</h4>
+<a class="block text-on-surface-variant text-body-sm font-body-sm hover:text-primary-container underline transition-all focus:outline-none focus:text-primary-container" href="#">FAQ</a>
+<a class="block text-on-surface-variant text-body-sm font-body-sm hover:text-primary-container underline transition-all focus:outline-none focus:text-primary-container" href="#">Shipping &amp; Returns</a>
+<a class="block text-on-surface-variant text-body-sm font-body-sm hover:text-primary-container underline transition-all focus:outline-none focus:text-primary-container" href="#">Privacy Policy</a>
+<a class="block text-on-surface-variant text-body-sm font-body-sm hover:text-primary-container underline transition-all focus:outline-none focus:text-primary-container" href="#">Terms of Service</a>
+</div>
+</div>
+<!-- Copyright & Socials -->
+<div class="border-t border-outline-variant/10 px-margin-mobile md:px-gutter py-6 flex flex-col md:flex-row items-center justify-between max-w-container-max mx-auto text-body-sm font-body-sm text-outline gap-4">
+<p>© 2024 PetStore - The Sophisticated Caretaker. All rights reserved.</p>
+<div class="flex items-center gap-4">
+<a aria-label="Facebook" class="hover:text-primary-container transition-colors" href="#">
+<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path></svg>
+</a>
+<a aria-label="Instagram" class="hover:text-primary-container transition-colors" href="#">
+<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+</a>
+<a aria-label="Twitter" class="hover:text-primary-container transition-colors" href="#">
+<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+</a>
+</div>
+</div>
+</footer>
+</body></html>

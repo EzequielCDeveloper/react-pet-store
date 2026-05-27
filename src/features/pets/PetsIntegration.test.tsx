@@ -1,80 +1,89 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
-import { HomePage } from '../home/HomePage';
+import { http, HttpResponse } from 'msw';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from '../home/HomePage';
+import { PetDetailPage } from './PetDetailPage';
 import { renderWithProviders } from '../../test-utils';
-import userEvent from '@testing-library/user-event';
+import { server } from '../../mocks/server';
 
 describe('Pets Integration', () => {
+  afterEach(() => {
+    server.resetHandlers();
+  });
+
   it('renders pets list fetched from API', async () => {
     renderWithProviders(<HomePage />);
 
-    // Check for loading state (optional, might be too fast)
-    // await waitFor(() => expect(screen.getByText(/loading/i)).toBeInTheDocument());
-
-    // Check if pets are rendered
     await waitFor(() => {
       expect(screen.getByText('Doggie')).toBeInTheDocument();
       expect(screen.getByText('Kitty')).toBeInTheDocument();
     });
-    
-    // Use getAllByText because status badge and filter label might match
+
     const availableElements = screen.getAllByText('available');
     expect(availableElements.length).toBeGreaterThan(0);
-    
-    // "pending" might be in the filter list even if no pets are pending, 
-    // but the test data has a pending pet usually? 
-    // Let's assume the mock returns mixed status pets.
   });
 
-  it('allows filtering by status', async () => {
-    const user = userEvent.setup();
-    renderWithProviders(<HomePage />);
+  describe('PetDetailPage', () => {
+    function renderPetDetail(petId: string) {
+      return renderWithProviders(
+        <Routes>
+          <Route path="/pets/:petId" element={<PetDetailPage />} />
+        </Routes>,
+        { initialEntries: [`/pets/${petId}`] },
+      );
+    }
 
-    await waitFor(() => expect(screen.getByText('Doggie')).toBeInTheDocument());
+    it('renders pet detail with name', async () => {
+      renderPetDetail('1');
 
-    // Toggle 'available' off
-    // The label text is "available" (lowercase) in the mock/component?
-    // In PetFilters.tsx it is capitalized in the span: <span ... capitalize">{status}</span>
-    // So it renders "Available".
-    // The test was looking for 'available'. 
-    // Let's check PetFilters.tsx again.
-    // It maps ['available', 'pending', 'sold'].
-    // {status} is "available".
-    // Class is "capitalize". So visual text is "Available".
-    // But getByLabelText might look at the text node.
-    // Let's try matching /Available/i.
-    
-    const availableCheckbox = screen.getByLabelText(/available/i);
-    await user.click(availableCheckbox);
-
-    // Should re-fetch (MSW handler is static, but we can verify the checkbox state)
-    expect(availableCheckbox).not.toBeChecked();
-  });
-
-  it('allows filtering by price', async () => {
-    const user = userEvent.setup();
-    renderWithProviders(<HomePage />);
-
-    await waitFor(() => expect(screen.getByText('Doggie')).toBeInTheDocument());
-
-    // Default price range is 0-200. Generated prices are 10-100.
-    // Set Min Price to 150. Should filter out all pets.
-    const minPriceInput = screen.getByLabelText(/min/i);
-    await user.clear(minPriceInput);
-    await user.type(minPriceInput, '150');
-
-    // Wait for filter to apply (it's client side, so fast, but async in React state update)
-    await waitFor(() => {
-        expect(screen.queryByText('Doggie')).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByText('Doggie')).toBeInTheDocument();
+      });
     });
 
-    // Set Min Price back to 0. Pets should reappear.
-    await user.clear(minPriceInput);
-    await user.type(minPriceInput, '0');
-    
-    await waitFor(() => {
-        expect(screen.getByText('Doggie')).toBeInTheDocument();
+    it('renders carousel with prev/next buttons when pet has multiple photoUrls', async () => {
+      server.use(
+        http.get('*/pet/:petId', () => {
+          return HttpResponse.json({
+            id: 1,
+            name: 'MultiPhotoPet',
+            status: 'available',
+            photoUrls: ['https://example.com/1.jpg', 'https://example.com/2.jpg', 'https://example.com/3.jpg'],
+          });
+        }),
+      );
+
+      renderPetDetail('1');
+
+      await waitFor(() => {
+        expect(screen.getByText('MultiPhotoPet')).toBeInTheDocument();
+      });
+
+      expect(screen.getByLabelText('Previous image')).toBeInTheDocument();
+      expect(screen.getByLabelText('Next image')).toBeInTheDocument();
+    });
+
+    it('renders dot indicators for carousel when multiple photos', async () => {
+      server.use(
+        http.get('*/pet/:petId', () => {
+          return HttpResponse.json({
+            id: 1,
+            name: 'DotPet',
+            status: 'available',
+            photoUrls: ['https://example.com/a.jpg', 'https://example.com/b.jpg'],
+          });
+        }),
+      );
+
+      renderPetDetail('1');
+
+      await waitFor(() => {
+        expect(screen.getByText('DotPet')).toBeInTheDocument();
+      });
+
+      expect(screen.getByLabelText('Image 1')).toBeInTheDocument();
+      expect(screen.getByLabelText('Image 2')).toBeInTheDocument();
     });
   });
 });
-

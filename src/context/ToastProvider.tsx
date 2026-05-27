@@ -49,7 +49,7 @@ const ToastItem = ({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
     <div 
       role="status"
       className={clsx(
-      "flex items-center gap-3 px-4 py-3 rounded-lg shadow-md border min-w-[300px] animate-in slide-in-from-right",
+      "flex items-center gap-3 px-4 py-3 rounded-lg shadow-md border min-w-[300px] animate-slide-in-right",
       bgColors[toast.type]
     )}>
       {icons[toast.type]}

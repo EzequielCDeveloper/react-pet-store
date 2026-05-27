@@ -72,54 +72,54 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
     <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6 bg-white p-6 rounded-lg shadow">
       {isEdit && (
         <div>
-          <label className="block text-sm font-medium text-gray-700">ID</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">ID</label>
           <input 
             type="number" 
             disabled 
             value={initialValues?.id} 
-            className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md p-2"
+            className="mt-0 block w-full bg-gray-100 border border-gray-300 rounded-lg p-2.5"
           />
         </div>
       )}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Name *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
         <input 
           {...register('name')}
-          className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+          className="mt-0 block w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
-        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+        {errors.name && <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Status *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Status *</label>
         <select 
           {...register('status')}
-          className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+          className="mt-0 block w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="available">Available</option>
           <option value="pending">Pending</option>
           <option value="sold">Sold</option>
         </select>
-        {errors.status && <p className="text-red-500 text-sm mt-1">{errors.status.message}</p>}
+        {errors.status && <p className="text-sm text-red-600 mt-1">{errors.status.message}</p>}
       </div>
 
       <div className="border-t pt-4">
         <h3 className="text-md font-medium text-gray-900 mb-2">Category</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">ID</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">ID</label>
             <input 
               type="number"
               {...register('category.id', { valueAsNumber: true })}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              className="mt-0 block w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
             <input 
               {...register('category.name')}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              className="mt-0 block w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
         </div>
@@ -142,7 +142,7 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
               <input 
                 {...register(`photoUrls.${index}.value`)}
                 placeholder="https://example.com/image.jpg"
-                className="flex-1 border border-gray-300 rounded-md p-2"
+                className="flex-1 border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <button 
                 type="button" 
@@ -175,12 +175,12 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
                 type="number"
                 placeholder="ID"
                 {...register(`tags.${index}.id`, { valueAsNumber: true })}
-                className="w-20 border border-gray-300 rounded-md p-2"
+                className="w-20 border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <input 
                 placeholder="Tag Name"
                 {...register(`tags.${index}.name`)}
-                className="flex-1 border border-gray-300 rounded-md p-2"
+                className="flex-1 border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <button 
                 type="button" 
@@ -198,7 +198,7 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50"
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 min-h-[44px]"
         >
           {isLoading ? 'Saving...' : (isEdit ? 'Update Pet' : 'Create Pet')}
         </button>

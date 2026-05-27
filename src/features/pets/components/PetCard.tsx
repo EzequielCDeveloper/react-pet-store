@@ -11,7 +11,6 @@ type Pet = components["schemas"]["Pet"];
 
 interface PetCardProps {
   pet: Pet;
-  onDelete?: (id: number) => void;
 }
 
 const statusColors = {
@@ -49,7 +48,7 @@ export const PetCard = ({ pet }: PetCardProps) => {
   return (
     <div 
       role="article"
-      className="block bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden border border-gray-200 flex flex-col h-full group relative"
+      className="block bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-200 overflow-hidden border border-gray-200 flex flex-col h-full group relative"
     >
       <Link 
         to={`/pets/${pet.id}`}

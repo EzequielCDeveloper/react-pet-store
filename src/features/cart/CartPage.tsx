@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Trash2, Plus, Minus, ArrowLeft, ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Trash2, Plus, Minus, ArrowLeft } from 'lucide-react';
 import { useCart } from '../../hooks/useCart';
 import { getPetImage } from '../../lib/pet-utils';
 
@@ -9,11 +9,11 @@ export const CartPage = () => {
 
   if (items.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-12 text-center">
+      <div className="max-w-4xl mx-auto px-4 py-16 text-center">
         <div className="bg-white rounded-lg shadow-sm p-12">
           <ShoppingBag className="mx-auto h-16 w-16 text-gray-300 mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-          <p className="text-gray-500 mb-8">Looks like you haven't added any pets yet.</p>
+          <p className="text-gray-500 mb-8">Looks like you haven&apos;t added any pets yet.</p>
           <Link
             to="/"
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
@@ -34,7 +34,7 @@ export const CartPage = () => {
         <ul className="divide-y divide-gray-200">
           {items.map((item) => (
             <li key={item.pet.id} className="p-6 flex flex-col sm:flex-row items-center">
-              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg border border-gray-200">
                 <img
                   src={getPetImage(item.pet.id)}
                   alt={item.pet.name}
