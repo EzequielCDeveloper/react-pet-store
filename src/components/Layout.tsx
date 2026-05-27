@@ -29,7 +29,7 @@ export const Layout = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-white focus:text-blue-600 focus:px-4 focus:py-2 focus:rounded focus:shadow-lg">
-        Skip to main content
+        Saltar al contenido principal
       </a>
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +39,7 @@ export const Layout = () => {
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 className="md:hidden p-2 min-h-[44px] min-w-[44px]"
-                aria-label="Open menu"
+                aria-label="Abrir menú"
               >
                 <Menu size={24} />
               </button>
@@ -58,7 +58,7 @@ export const Layout = () => {
                     type="search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search pets..."
+                     placeholder="Buscar mascotas..."
                     className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[44px]"
                   />
                 </div>
@@ -70,13 +70,13 @@ export const Layout = () => {
               <button
                 onClick={handleMobileSearch}
                 className="md:hidden p-2 min-h-[44px] min-w-[44px]"
-                aria-label="Search"
+                 aria-label="Buscar"
               >
                 <Search size={24} />
               </button>
 
               {/* Cart */}
-              <Link to="/cart" className="p-2 min-h-[44px] min-w-[44px] text-gray-500 hover:text-blue-600 transition-colors relative group" aria-label="Cart">
+              <Link to="/cart" className="p-2 min-h-[44px] min-w-[44px] text-gray-500 hover:text-blue-600 transition-colors relative group" aria-label="Carrito">
                 <ShoppingCart size={24} className="group-hover:scale-110 transition-transform" />
                 {itemCount > 0 && (
                   <span className="absolute top-0 right-0 h-5 w-5 bg-red-500 rounded-full text-xs font-bold text-white flex items-center justify-center shadow-sm">
@@ -88,7 +88,7 @@ export const Layout = () => {
               {user ? (
                 <div className="flex items-center space-x-3 pl-4 border-l border-gray-200">
                   <div className="text-right hidden sm:block">
-                    <p className="text-sm font-medium text-gray-900">Hello,</p>
+                    <p className="text-sm font-medium text-gray-900">Hola,</p>
                     <p className="text-xs text-gray-500">{user}</p>
                   </div>
                   <Link 
@@ -104,7 +104,7 @@ export const Layout = () => {
                   className="flex items-center space-x-2 px-4 py-2 min-h-[44px] bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors shadow-sm"
                 >
                   <LogIn size={18} />
-                  <span>Login</span>
+                   <span>Iniciar sesión</span>
                 </Link>
               )}
             </div>
@@ -122,20 +122,20 @@ export const Layout = () => {
         <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="text-center sm:text-left">
-              <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">About</h3>
+              <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">Acerca de</h3>
               <p className="text-base text-gray-500">
-                A simple pet store application built with React and Swagger API.
+                Una tienda de mascotas simple construida con React y Swagger API.
               </p>
             </div>
             <div className="text-center sm:text-left">
-              <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">Links</h3>
+              <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">Enlaces</h3>
               <ul className="space-y-4">
-                <li><Link to="/" className="text-base text-gray-500 hover:text-blue-600">Home</Link></li>
-                <li><Link to="/users/login" className="text-base text-gray-500 hover:text-blue-600">Login</Link></li>
+                <li><Link to="/" className="text-base text-gray-500 hover:text-blue-600">Inicio</Link></li>
+                <li><Link to="/users/login" className="text-base text-gray-500 hover:text-blue-600">Iniciar sesión</Link></li>
               </ul>
             </div>
             <div className="text-center sm:text-left">
-              <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">Contact</h3>
+              <h3 className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-4">Contacto</h3>
               <p className="text-base text-gray-500">
                 support@petstore.com
               </p>
@@ -143,7 +143,7 @@ export const Layout = () => {
           </div>
           <div className="mt-8 border-t border-gray-200 pt-8 text-center">
             <p className="text-sm text-gray-400">
-              &copy; {new Date().getFullYear()} Swagger Petstore Client. All rights reserved.
+              &copy; {new Date().getFullYear()} Swagger Petstore Client. Todos los derechos reservados.
             </p>
           </div>
         </div>

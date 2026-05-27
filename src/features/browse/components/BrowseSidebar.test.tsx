@@ -39,13 +39,13 @@ describe('BrowseSidebar', () => {
       />
     );
 
-    const statusSelect = screen.getByLabelText('Status');
+    const statusSelect = screen.getByLabelText('Estado');
     expect(statusSelect).toBeInTheDocument();
     const statusOptions = within(statusSelect);
-    expect(statusOptions.getByRole('option', { name: 'All' })).toBeInTheDocument();
-    expect(statusOptions.getByRole('option', { name: 'Available' })).toBeInTheDocument();
-    expect(statusOptions.getByRole('option', { name: 'Pending' })).toBeInTheDocument();
-    expect(statusOptions.getByRole('option', { name: 'Sold' })).toBeInTheDocument();
+    expect(statusOptions.getByRole('option', { name: 'Todos' })).toBeInTheDocument();
+    expect(statusOptions.getByRole('option', { name: 'Disponible' })).toBeInTheDocument();
+    expect(statusOptions.getByRole('option', { name: 'Pendiente' })).toBeInTheDocument();
+    expect(statusOptions.getByRole('option', { name: 'Vendido' })).toBeInTheDocument();
   });
 
   it('renders category dropdown with All plus categories from allPets', () => {
@@ -59,10 +59,10 @@ describe('BrowseSidebar', () => {
       />
     );
 
-    const categorySelect = screen.getByLabelText('Category');
+    const categorySelect = screen.getByLabelText('Categoría');
     expect(categorySelect).toBeInTheDocument();
     const categoryOptions = within(categorySelect);
-    expect(categoryOptions.getByRole('option', { name: 'All' })).toBeInTheDocument();
+    expect(categoryOptions.getByRole('option', { name: 'Todos' })).toBeInTheDocument();
     expect(categoryOptions.getByRole('option', { name: 'Cats' })).toBeInTheDocument();
     expect(categoryOptions.getByRole('option', { name: 'Dogs' })).toBeInTheDocument();
     expect(categoryOptions.getByRole('option', { name: 'Fish' })).toBeInTheDocument();
@@ -79,12 +79,12 @@ describe('BrowseSidebar', () => {
       />
     );
 
-    const sortSelect = screen.getByLabelText('Sort');
+    const sortSelect = screen.getByLabelText('Ordenar por');
     expect(sortSelect).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'Name A-Z' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'Name Z-A' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'Price Low-High' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'Price High-Low' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Nombre A-Z' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Nombre Z-A' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Precio menor-mayor' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Precio mayor-menor' })).toBeInTheDocument();
   });
 
   it('renders hasPhoto dropdown', () => {
@@ -98,10 +98,10 @@ describe('BrowseSidebar', () => {
       />
     );
 
-    const photoSelect = screen.getByLabelText('Photo');
+    const photoSelect = screen.getByLabelText('Foto');
     expect(photoSelect).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'Show all' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'With photos only' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Mostrar todos' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Solo con foto' })).toBeInTheDocument();
   });
 
   it('status change calls onFilterChange with correct key and value', async () => {
@@ -118,7 +118,7 @@ describe('BrowseSidebar', () => {
       />
     );
 
-    await user.selectOptions(screen.getByLabelText('Status'), 'available');
+    await user.selectOptions(screen.getByLabelText('Estado'), 'available');
     expect(onFilterChange).toHaveBeenCalledWith('status', 'available');
   });
 
@@ -136,7 +136,7 @@ describe('BrowseSidebar', () => {
       />
     );
 
-    await user.selectOptions(screen.getByLabelText('Category'), 'Dogs');
+    await user.selectOptions(screen.getByLabelText('Categoría'), 'Dogs');
     expect(onFilterChange).toHaveBeenCalledWith('category', 'Dogs');
   });
 
@@ -154,7 +154,7 @@ describe('BrowseSidebar', () => {
       />
     );
 
-    await user.click(screen.getByRole('button', { name: /Clear all filters/i }));
+    await user.click(screen.getByRole('button', { name: /Limpiar filtros/i }));
     expect(onClearAll).toHaveBeenCalledOnce();
   });
 
@@ -169,7 +169,7 @@ describe('BrowseSidebar', () => {
       />
     );
 
-    const categorySelect = screen.getByLabelText('Category');
+    const categorySelect = screen.getByLabelText('Categoría');
     expect(categorySelect).toBeDisabled();
   });
 
@@ -242,7 +242,7 @@ describe('BrowseSidebar', () => {
         />
       );
 
-      await user.click(screen.getByLabelText('Close filters'));
+      await user.click(screen.getByLabelText('Cerrar filtros'));
       expect(onClose).toHaveBeenCalledOnce();
     });
 

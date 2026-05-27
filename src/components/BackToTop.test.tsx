@@ -15,7 +15,7 @@ describe('BackToTop', () => {
   it('hidden initially (opacity-0, translate-y-4)', () => {
     render(<BackToTop />);
 
-    const button = screen.getByLabelText('Back to top');
+    const button = screen.getByLabelText('Volver arriba');
     expect(button.className).toContain('opacity-0');
     expect(button.className).toContain('translate-y-4');
     expect(button.className).toContain('pointer-events-none');
@@ -29,7 +29,7 @@ describe('BackToTop', () => {
       window.dispatchEvent(new Event('scroll'));
     });
 
-    const button = screen.getByLabelText('Back to top');
+    const button = screen.getByLabelText('Volver arriba');
     expect(button.className).toContain('opacity-100');
   });
 
@@ -42,7 +42,7 @@ describe('BackToTop', () => {
       window.dispatchEvent(new Event('scroll'));
     });
 
-    await user.click(screen.getByLabelText('Back to top'));
+    await user.click(screen.getByLabelText('Volver arriba'));
 
     expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
   });

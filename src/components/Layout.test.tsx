@@ -41,7 +41,7 @@ describe('Layout', () => {
   it('search input renders in Header on desktop viewport', () => {
     renderLayout();
 
-    const searchInput = screen.getByPlaceholderText('Search pets...');
+    const searchInput = screen.getByPlaceholderText('Buscar mascotas...');
     expect(searchInput).toBeInTheDocument();
     expect(searchInput.tagName).toBe('INPUT');
   });
@@ -49,14 +49,14 @@ describe('Layout', () => {
   it('search input has type="search"', () => {
     renderLayout();
 
-    const searchInput = screen.getByPlaceholderText('Search pets...');
+    const searchInput = screen.getByPlaceholderText('Buscar mascotas...');
     expect(searchInput).toHaveAttribute('type', 'search');
   });
 
   it('search input is wrapped in a form element', () => {
     renderLayout();
 
-    const searchInput = screen.getByPlaceholderText('Search pets...');
+    const searchInput = screen.getByPlaceholderText('Buscar mascotas...');
     expect(searchInput.closest('form')).toBeInTheDocument();
   });
 
@@ -64,7 +64,7 @@ describe('Layout', () => {
     const user = userEvent.setup();
     renderLayout();
 
-    const input = screen.getByPlaceholderText('Search pets...');
+    const input = screen.getByPlaceholderText('Buscar mascotas...');
     await user.type(input, 'rex');
     await user.keyboard('{Enter}');
 
@@ -75,7 +75,7 @@ describe('Layout', () => {
     const user = userEvent.setup();
     renderLayout();
 
-    const input = screen.getByPlaceholderText('Search pets...');
+    const input = screen.getByPlaceholderText('Buscar mascotas...');
     await user.type(input, '   ');
     await user.keyboard('{Enter}');
 
@@ -85,21 +85,21 @@ describe('Layout', () => {
   it('cart badge still displays correct state', () => {
     renderLayout();
 
-    const cartLink = screen.getByLabelText('Cart');
+    const cartLink = screen.getByLabelText('Carrito');
     expect(cartLink).toBeInTheDocument();
   });
 
   it('user logged-out state still shows Login button', () => {
     renderLayout();
 
-    const loginElements = screen.getAllByText('Login');
+    const loginElements = screen.getAllByText('Iniciar sesión');
     expect(loginElements.length).toBeGreaterThan(0);
   });
 
   it('renders hamburger button on mobile', () => {
     renderLayout();
 
-    const menuButton = screen.getByLabelText('Open menu');
+    const menuButton = screen.getByLabelText('Abrir menú');
     expect(menuButton).toBeInTheDocument();
   });
 
@@ -109,7 +109,7 @@ describe('Layout', () => {
 
     expect(screen.queryByRole('dialog')).toBeNull();
 
-    await user.click(screen.getByLabelText('Open menu'));
+    await user.click(screen.getByLabelText('Abrir menú'));
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
@@ -118,9 +118,9 @@ describe('Layout', () => {
     const user = userEvent.setup();
     renderLayout();
 
-    await user.click(screen.getByLabelText('Open menu'));
+    await user.click(screen.getByLabelText('Abrir menú'));
 
-    const closeButton = screen.getByLabelText('Close menu');
+    const closeButton = screen.getByLabelText('Cerrar menú');
     await user.click(closeButton);
 
     expect(screen.queryByRole('dialog')).toBeNull();
@@ -129,7 +129,7 @@ describe('Layout', () => {
   it('renders skip-to-content link', () => {
     renderLayout();
 
-    const skipLink = screen.getByText('Skip to main content');
+    const skipLink = screen.getByText('Saltar al contenido principal');
     expect(skipLink).toBeInTheDocument();
     expect(skipLink).toHaveAttribute('href', '#main-content');
   });
@@ -145,13 +145,13 @@ describe('Layout', () => {
   it('renders BackToTop component', () => {
     renderLayout();
 
-    expect(screen.getByLabelText('Back to top')).toBeInTheDocument();
+    expect(screen.getByLabelText('Volver arriba')).toBeInTheDocument();
   });
 
   it('header hamburger has min-height of 44px', () => {
     renderLayout();
 
-    const menuButton = screen.getByLabelText('Open menu');
+    const menuButton = screen.getByLabelText('Abrir menú');
     expect(menuButton.className).toContain('min-h-[44px]');
     expect(menuButton.className).toContain('min-w-[44px]');
   });
@@ -159,7 +159,7 @@ describe('Layout', () => {
   it('cart link has min-h-[44px] touch target', () => {
     renderLayout();
 
-    const cartLink = screen.getByLabelText('Cart');
+    const cartLink = screen.getByLabelText('Carrito');
     expect(cartLink.className).toContain('min-h-[44px]');
     expect(cartLink.className).toContain('min-w-[44px]');
   });

@@ -65,23 +65,23 @@ describe('BrowsePage', () => {
     renderWithProviders(<BrowsePage />);
 
     expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toBeInTheDocument();
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Browse')).toBeInTheDocument();
+    expect(screen.getByText('Inicio')).toBeInTheDocument();
+    expect(screen.getByText('Explorar')).toBeInTheDocument();
   });
 
   it('renders FilterChips hidden when no filters', () => {
     renderWithProviders(<BrowsePage />);
 
-    expect(screen.queryByText('Clear all')).not.toBeInTheDocument();
+    expect(screen.queryByText('Limpiar todo')).not.toBeInTheDocument();
   });
 
   it('renders BrowseSidebar with filter dropdowns', () => {
     renderWithProviders(<BrowsePage />);
 
-    expect(screen.getByLabelText('Status')).toBeInTheDocument();
-    expect(screen.getByLabelText('Category')).toBeInTheDocument();
-    expect(screen.getByLabelText('Sort')).toBeInTheDocument();
-    expect(screen.getByLabelText('Photo')).toBeInTheDocument();
+    expect(screen.getByLabelText('Estado')).toBeInTheDocument();
+    expect(screen.getByLabelText('Categoría')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ordenar por')).toBeInTheDocument();
+    expect(screen.getByLabelText('Foto')).toBeInTheDocument();
   });
 
   it('renders BrowseGrid in loading state initially', () => {

@@ -77,14 +77,14 @@ function PetImageCarousel({ pet }: { readonly pet: Pet }) {
         <button
           onClick={handlePrev}
           className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-colors"
-          aria-label="Previous image"
+          aria-label="Imagen anterior"
         >
           <ChevronLeft size={24} className="text-gray-700" />
         </button>
         <button
           onClick={handleNext}
           className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md transition-colors"
-          aria-label="Next image"
+          aria-label="Imagen siguiente"
         >
           <ChevronRight size={24} className="text-gray-700" />
         </button>
@@ -97,7 +97,7 @@ function PetImageCarousel({ pet }: { readonly pet: Pet }) {
             className={`w-2.5 h-2.5 rounded-full transition-colors ${
               idx === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
             }`}
-            aria-label={`Image ${idx + 1}`}
+            aria-label={`Imagen ${idx + 1}`}
           />
         ))}
       </div>
@@ -134,14 +134,14 @@ export const PetDetailPage = () => {
       if (error) throw error;
       return data;
     },
-    onSuccess: (data) => {
+     onSuccess: (data) => {
       queryClient.setQueryData(['pet', petId], data);
       setIsEditing(false);
-      addToast("Pet updated successfully", 'success');
+      addToast("Mascota actualizada exitosamente", 'success');
     },
     onError: (error) => {
       console.error(error);
-      addToast("Failed to update pet", 'error');
+      addToast("Error al actualizar la mascota", 'error');
     }
   });
 
@@ -154,12 +154,12 @@ export const PetDetailPage = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pets'] });
-      addToast("Pet deleted successfully", 'success');
+      addToast("Mascota eliminada exitosamente", 'success');
       navigate('/');
     },
     onError: (error) => {
       console.error(error);
-      addToast("Failed to delete pet", 'error');
+      addToast("Error al eliminar la mascota", 'error');
     }
   });
 
@@ -178,11 +178,11 @@ export const PetDetailPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pet', petId] });
       setUploadFile(null);
-      addToast("Image uploaded successfully", 'success');
+      addToast("Imagen subida exitosamente", 'success');
     },
     onError: (error) => {
       console.error(error);
-      addToast("Image upload failed", 'error');
+      addToast("Error al subir la imagen", 'error');
     }
   });
 
@@ -193,31 +193,31 @@ export const PetDetailPage = () => {
     return (
       <div className="py-12 text-center">
         <Search className="mx-auto h-16 w-16 text-gray-400 mb-4" />
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Pet Not Found</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Mascota no encontrada</h2>
         <p className="text-gray-500 mb-6">
-          The pet you are looking for does not exist or the ID is invalid.
+          La mascota que buscas no existe o el ID no es válido.
         </p>
         <button 
           onClick={() => navigate('/')}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
         >
-          Return to Home
+          Volver al inicio
         </button>
       </div>
     );
   }
-  if (!pet) return <div>Pet not found</div>;
+  if (!pet) return <div>Mascota no encontrada</div>;
 
   if (isEditing) {
     return (
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Edit Pet: {pet.name}</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Editar mascota: {pet.name}</h1>
           <button 
             onClick={() => setIsEditing(false)}
             className="text-gray-600 hover:text-gray-900"
           >
-            Cancel
+            Cancelar
           </button>
         </div>
         <PetForm 
@@ -237,7 +237,7 @@ export const PetDetailPage = () => {
         className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
       >
         <ArrowLeft size={20} className="mr-2" />
-        Back to Home
+        Volver al inicio
       </button>
 
       <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -250,34 +250,36 @@ export const PetDetailPage = () => {
                   pet.status === 'available' ? 'text-green-600' :
                   pet.status === 'pending' ? 'text-amber-600' :
                   'text-red-600'
-                )}>{pet.status}</div>
+                )}>
+                  {pet.status === 'available' ? 'Disponible' : pet.status === 'pending' ? 'Pendiente' : 'Vendido'}
+                </div>
                 <h1 className="block mt-1 text-3xl leading-tight font-bold text-black">{pet.name}</h1>
-                <p className="mt-2 text-gray-500">Category: {pet.category?.name || 'None'}</p>
+                <p className="mt-2 text-gray-500">Categoría: {pet.category?.name || 'Ninguna'}</p>
                 <div className="mt-4 flex items-center space-x-4">
                   <span className="text-3xl font-bold text-blue-600">£{getPetPrice(pet.id)}</span>
                   {pet.status === 'available' ? (
                     <button 
                       onClick={() => {
                         addToCart(pet);
-                        addToast("Added to cart", "success");
+                        addToast("Agregado al carrito", "success");
                       }}
                       className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 flex items-center shadow-sm transition-all transform hover:scale-105"
                     >
-                      <ShoppingCart size={20} className="mr-2" /> Add to Cart
+                      <ShoppingCart size={20} className="mr-2" /> Agregar al carrito
                     </button>
                   ) : pet.status === 'pending' ? (
                     <button 
                       disabled
                       className="bg-yellow-100 text-yellow-800 px-6 py-2 rounded-lg cursor-not-allowed border border-yellow-200 flex items-center"
                     >
-                      Pending
+                      Pendiente
                     </button>
                   ) : (
                     <button 
                       disabled
                       className="bg-red-100 text-red-800 px-6 py-2 rounded-lg cursor-not-allowed border border-red-200 flex items-center"
                     >
-                      Sold
+                      Vendido
                     </button>
                   )}
                 </div>
@@ -287,23 +289,23 @@ export const PetDetailPage = () => {
                    onClick={() => setIsEditing(true)}
                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                  >
-                   Edit
+                   Editar
                  </button>
                  <button 
                    onClick={() => {
-                     if (window.confirm('Are you sure you want to delete this pet?')) {
+                     if (window.confirm('¿Estás seguro de que quieres eliminar esta mascota?')) {
                        deleteMutation.mutate();
                      }
                    }}
                    className="bg-red-100 text-red-700 px-4 py-2 rounded hover:bg-red-200 flex items-center"
                  >
-                   <Trash2 size={18} className="mr-2" /> Delete
+                   <Trash2 size={18} className="mr-2" /> Eliminar
                  </button>
               </div>
             </div>
 
             <div className="mt-4">
-              <h3 className="text-lg font-medium">Tags:</h3>
+              <h3 className="text-lg font-medium">Etiquetas:</h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {pet.tags?.map((tag, index) => (
                   <span key={tag.id || `tag-${index}`} className="bg-gray-100 text-gray-800 text-sm px-2 py-1 rounded">
@@ -314,7 +316,7 @@ export const PetDetailPage = () => {
             </div>
 
             <div className="mt-8 border-t pt-6">
-              <h3 className="text-lg font-medium mb-4">Upload Image</h3>
+              <h3 className="text-lg font-medium mb-4">Subir imagen</h3>
               <div className="flex gap-4 items-center">
                 <input 
                   type="file" 
@@ -327,7 +329,7 @@ export const PetDetailPage = () => {
                   className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-50 flex items-center whitespace-nowrap"
                 >
                   <Upload size={18} className="mr-2" /> 
-                  {uploadMutation.isPending ? 'Uploading...' : 'Upload'}
+                  {uploadMutation.isPending ? 'Subiendo...' : 'Subir'}
                 </button>
               </div>
             </div>

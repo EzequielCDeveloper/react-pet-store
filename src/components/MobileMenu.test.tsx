@@ -16,7 +16,7 @@ describe('MobileMenu', () => {
   it('renders when open', () => {
     renderMenu(true);
 
-    const dialog = screen.getByRole('dialog', { name: 'Navigation menu' });
+    const dialog = screen.getByRole('dialog', { name: 'Menú de navegación' });
     expect(dialog).toBeInTheDocument();
   });
 
@@ -29,10 +29,10 @@ describe('MobileMenu', () => {
   it('nav links present', () => {
     renderMenu(true);
 
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Browse')).toBeInTheDocument();
-    expect(screen.getByText('Cart')).toBeInTheDocument();
-    expect(screen.getByText('Login')).toBeInTheDocument();
+    expect(screen.getByText('Inicio')).toBeInTheDocument();
+    expect(screen.getByText('Explorar')).toBeInTheDocument();
+    expect(screen.getByText('Carrito')).toBeInTheDocument();
+    expect(screen.getByText('Iniciar sesión')).toBeInTheDocument();
   });
 
   it('close button works', async () => {
@@ -40,7 +40,7 @@ describe('MobileMenu', () => {
     const onClose = vi.fn();
     renderMenu(true, onClose);
 
-    await user.click(screen.getByLabelText('Close menu'));
+    await user.click(screen.getByLabelText('Cerrar menú'));
     expect(onClose).toHaveBeenCalledOnce();
   });
 

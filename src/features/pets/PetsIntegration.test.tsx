@@ -60,8 +60,8 @@ describe('Pets Integration', () => {
         expect(screen.getByText('MultiPhotoPet')).toBeInTheDocument();
       });
 
-      expect(screen.getByLabelText('Previous image')).toBeInTheDocument();
-      expect(screen.getByLabelText('Next image')).toBeInTheDocument();
+      expect(screen.getByLabelText('Imagen anterior')).toBeInTheDocument();
+      expect(screen.getByLabelText('Imagen siguiente')).toBeInTheDocument();
     });
 
     it('renders dot indicators for carousel when multiple photos', async () => {
@@ -82,8 +82,8 @@ describe('Pets Integration', () => {
         expect(screen.getByText('DotPet')).toBeInTheDocument();
       });
 
-      expect(screen.getByLabelText('Image 1')).toBeInTheDocument();
-      expect(screen.getByLabelText('Image 2')).toBeInTheDocument();
+      expect(screen.getByLabelText('Imagen 1')).toBeInTheDocument();
+      expect(screen.getByLabelText('Imagen 2')).toBeInTheDocument();
     });
   });
 });

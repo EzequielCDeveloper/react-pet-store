@@ -39,9 +39,9 @@ describe('FilterChips', () => {
       />
     );
 
-    expect(screen.getByText('Available')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Remove Available filter/i })).toBeInTheDocument();
-    expect(screen.getByText('Clear all')).toBeInTheDocument();
+    expect(screen.getByText('Disponible')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Quitar filtro Disponible/i })).toBeInTheDocument();
+    expect(screen.getByText('Limpiar todo')).toBeInTheDocument();
   });
 
   it('renders category chip when category is set', () => {
@@ -54,7 +54,7 @@ describe('FilterChips', () => {
     );
 
     expect(screen.getByText('Dogs')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Remove Dogs filter/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Quitar filtro Dogs/i })).toBeInTheDocument();
   });
 
   it('renders search chip when q is set', () => {
@@ -78,7 +78,7 @@ describe('FilterChips', () => {
       />
     );
 
-    expect(screen.getByText('With photos')).toBeInTheDocument();
+    expect(screen.getByText('Con foto')).toBeInTheDocument();
   });
 
   it('clicking x on a chip calls onRemoveFilter with correct key', async () => {
@@ -93,11 +93,11 @@ describe('FilterChips', () => {
       />
     );
 
-    await user.click(screen.getByRole('button', { name: /Remove Available filter/i }));
+    await user.click(screen.getByRole('button', { name: /Quitar filtro Disponible/i }));
     expect(onRemoveFilter).toHaveBeenCalledWith('status');
   });
 
-  it('clicking Clear all calls onClearAll', async () => {
+  it('clicking Limpiar todo calls onClearAll', async () => {
     const user = userEvent.setup();
     const onClearAll = vi.fn();
 
@@ -109,7 +109,7 @@ describe('FilterChips', () => {
       />
     );
 
-    await user.click(screen.getByText('Clear all'));
+    await user.click(screen.getByText('Limpiar todo'));
     expect(onClearAll).toHaveBeenCalledOnce();
   });
 
@@ -128,10 +128,10 @@ describe('FilterChips', () => {
       />
     );
 
-    expect(screen.getByText('Available')).toBeInTheDocument();
+    expect(screen.getByText('Disponible')).toBeInTheDocument();
     expect(screen.getByText('Dogs')).toBeInTheDocument();
     expect(screen.getByText('"rex"')).toBeInTheDocument();
-    expect(screen.getByText('With photos')).toBeInTheDocument();
-    expect(screen.getByText('Clear all')).toBeInTheDocument();
+    expect(screen.getByText('Con foto')).toBeInTheDocument();
+    expect(screen.getByText('Limpiar todo')).toBeInTheDocument();
   });
 });

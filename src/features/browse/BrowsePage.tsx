@@ -68,7 +68,7 @@ export default function BrowsePage() {
           className="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
         >
           <SlidersHorizontal size={18} />
-          Filters
+           Filtros
         </button>
       </div>
       <div className="flex gap-8">

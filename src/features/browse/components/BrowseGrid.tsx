@@ -51,14 +51,14 @@ export default function BrowseGrid({
     return (
       <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-8 rounded-lg text-center max-w-md mx-auto">
         <p className="text-lg font-medium mb-4">
-          Unable to load pets. Please try again.
+          No se pudieron cargar las mascotas. Por favor, intenta de nuevo.
         </p>
         <p className="text-sm text-red-600 mb-4">{error.message}</p>
         <button
           onClick={onRetry}
           className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-full transition-colors"
         >
-          Try again
+          Intentar de nuevo
         </button>
       </div>
     );
@@ -69,10 +69,10 @@ export default function BrowseGrid({
       <div className="py-12 text-center">
         <Search className="mx-auto h-12 w-12 text-gray-400 mb-4" />
         <h3 className="text-lg font-medium text-gray-900">
-          No pets match your filters
+          No se encontraron mascotas con esos filtros
         </h3>
         <p className="mt-2 text-sm text-gray-500">
-          Try adjusting or clearing your filters to see more pets.
+          Intenta ajustar o limpiar tus filtros para ver más mascotas.
         </p>
       </div>
     );

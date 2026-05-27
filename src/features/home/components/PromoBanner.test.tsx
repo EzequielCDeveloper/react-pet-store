@@ -12,19 +12,19 @@ describe('PromoBanner', () => {
     renderWithRouter(<PromoBanner />);
 
     const heading = screen.getByRole('heading', { level: 2 });
-    expect(heading).toHaveTextContent(/20% Off/i);
+    expect(heading).toHaveTextContent(/20% de descuento/i);
   });
 
   it('renders descriptive promotional copy', () => {
     renderWithRouter(<PromoBanner />);
 
-    expect(screen.getByText(/Join our community/)).toBeInTheDocument();
+    expect(screen.getByText(/Únete a nuestra comunidad/)).toBeInTheDocument();
   });
 
   it('renders CTA link pointing to /browse', () => {
     renderWithRouter(<PromoBanner />);
 
-    const link = screen.getByRole('link', { name: /Browse Pets/i });
+    const link = screen.getByRole('link', { name: /Explorar mascotas/i });
     expect(link).toHaveAttribute('href', '/browse');
   });
 });

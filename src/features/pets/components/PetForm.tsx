@@ -8,7 +8,7 @@ type Pet = components["schemas"]["Pet"];
 
 const petSchema = z.object({
   id: z.number().optional(),
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "El nombre es obligatorio"),
   status: z.enum(["available", "pending", "sold"]),
   category: z.object({
     id: z.number().optional(),
@@ -18,7 +18,7 @@ const petSchema = z.object({
     id: z.number().optional(),
     name: z.string().optional()
   })).optional(),
-  photoUrls: z.array(z.object({ value: z.string().min(1, "URL is required") })).min(1, "At least one photo URL is required")
+  photoUrls: z.array(z.object({ value: z.string().min(1, "La URL es obligatoria") })).min(1, "Se requiere al menos una URL de foto")
 });
 
 type PetFormValues = z.infer<typeof petSchema>;
@@ -83,7 +83,7 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
       )}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Nombre *</label>
         <input 
           {...register('name')}
           className="mt-0 block w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -92,20 +92,20 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Status *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Estado *</label>
         <select 
           {...register('status')}
           className="mt-0 block w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
-          <option value="available">Available</option>
-          <option value="pending">Pending</option>
-          <option value="sold">Sold</option>
+          <option value="available">Disponible</option>
+          <option value="pending">Pendiente</option>
+          <option value="sold">Vendido</option>
         </select>
         {errors.status && <p className="text-sm text-red-600 mt-1">{errors.status.message}</p>}
       </div>
 
       <div className="border-t pt-4">
-        <h3 className="text-md font-medium text-gray-900 mb-2">Category</h3>
+        <h3 className="text-md font-medium text-gray-900 mb-2">Categoría</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">ID</label>
@@ -116,7 +116,7 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
             <input 
               {...register('category.name')}
               className="mt-0 block w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -127,13 +127,13 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
 
       <div className="border-t pt-4">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-md font-medium text-gray-900">Photo URLs *</h3>
+          <h3 className="text-md font-medium text-gray-900">URLs de fotos *</h3>
           <button 
             type="button" 
             onClick={() => appendPhoto({ value: '' })}
             className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
           >
-            <Plus size={16} /> Add URL
+            <Plus size={16} /> Agregar URL
           </button>
         </div>
         <div className="space-y-2">
@@ -159,13 +159,13 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
 
       <div className="border-t pt-4">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-md font-medium text-gray-900">Tags</h3>
+          <h3 className="text-md font-medium text-gray-900">Etiquetas</h3>
           <button 
             type="button" 
             onClick={() => appendTag({ id: 0, name: '' })}
             className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
           >
-            <Plus size={16} /> Add Tag
+            <Plus size={16} /> Agregar etiqueta
           </button>
         </div>
         <div className="space-y-2">
@@ -178,7 +178,7 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
                 className="w-20 border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <input 
-                placeholder="Tag Name"
+                 placeholder="Nombre de etiqueta"
                 {...register(`tags.${index}.name`)}
                 className="flex-1 border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
@@ -200,7 +200,7 @@ export const PetForm = ({ initialValues, onSubmit, isLoading, isEdit }: PetFormP
           disabled={isLoading}
           className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 min-h-[44px]"
         >
-          {isLoading ? 'Saving...' : (isEdit ? 'Update Pet' : 'Create Pet')}
+          {isLoading ? 'Guardando...' : (isEdit ? 'Actualizar mascota' : 'Crear mascota')}
         </button>
       </div>
     </form>

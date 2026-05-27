@@ -8,21 +8,21 @@ describe('HeroBanner', () => {
     const ref = { current: null };
     render(<HeroBanner targetRef={ref as React.RefObject<HTMLElement | null>} />);
 
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Perfect Companion');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('compañero perfecto');
   });
 
   it('renders subheading paragraph text', () => {
     const ref = { current: null };
     render(<HeroBanner targetRef={ref as React.RefObject<HTMLElement | null>} />);
 
-    expect(screen.getByText(/Discover loving pets/)).toBeInTheDocument();
+    expect(screen.getByText(/Descubre mascotas/)).toBeInTheDocument();
   });
 
-  it('renders CTA button with Shop Now text', () => {
+  it('renders CTA button with Comprar ahora text', () => {
     const ref = { current: null };
     render(<HeroBanner targetRef={ref as React.RefObject<HTMLElement | null>} />);
 
-    expect(screen.getByRole('button', { name: /Shop Now/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Comprar ahora/i })).toBeInTheDocument();
   });
 
   it('clicking CTA button calls scrollIntoView on targetRef', async () => {
@@ -37,7 +37,7 @@ describe('HeroBanner', () => {
 
     render(<HeroBanner targetRef={ref as React.RefObject<HTMLElement | null>} />);
 
-    const button = screen.getByRole('button', { name: /Shop Now/i });
+    const button = screen.getByRole('button', { name: /Comprar ahora/i });
     await user.click(button);
 
     expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' });

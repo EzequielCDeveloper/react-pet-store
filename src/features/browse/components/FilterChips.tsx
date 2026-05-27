@@ -1,15 +1,15 @@
 import type { BrowseFilters } from '../useBrowseLogic';
 
 const STATUS_LABELS: Record<string, string> = {
-  available: 'Available',
-  pending: 'Pending',
-  sold: 'Sold',
+  available: 'Disponible',
+  pending: 'Pendiente',
+  sold: 'Vendido',
 };
 
 const SORT_LABELS: Record<string, string> = {
-  'name-desc': 'Name Z-A',
-  'price-low': 'Price Low-High',
-  'price-high': 'Price High-Low',
+  'name-desc': 'Nombre Z-A',
+  'price-low': 'Precio menor-mayor',
+  'price-high': 'Precio mayor-menor',
 };
 
 const CATEGORY_CHIP_COLORS: Record<string, { bg: string; text: string }> = {
@@ -50,7 +50,7 @@ function buildChips(filters: BrowseFilters): ChipDef[] {
   }
 
   if (filters.hasPhoto === 'yes') {
-    chips.push({ key: 'hasPhoto', label: 'With photos' });
+    chips.push({ key: 'hasPhoto', label: 'Con foto' });
   }
 
   if (filters.sort !== 'name-asc') {
@@ -98,7 +98,7 @@ export default function FilterChips({
               type="button"
               className="ml-1 hover:opacity-70 font-bold"
               onClick={() => onRemoveFilter(chip.key)}
-              aria-label={`Remove ${chip.label} filter`}
+              aria-label={`Quitar filtro ${chip.label}`}
             >
               ×
             </button>
@@ -110,7 +110,7 @@ export default function FilterChips({
         className="text-sm text-blue-600 hover:text-blue-800 underline"
         onClick={onClearAll}
       >
-        Clear all
+        Limpiar todo
       </button>
     </div>
   );

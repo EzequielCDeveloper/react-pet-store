@@ -15,24 +15,24 @@ describe('Breadcrumb', () => {
   it('renders "Home" for root path /', () => {
     renderBreadcrumb(['/']);
 
-    expect(screen.getByText('Home')).toBeDefined();
-    expect(screen.queryByText('Browse')).toBeNull();
+    expect(screen.getByText('Inicio')).toBeDefined();
+    expect(screen.queryByText('Explorar')).toBeNull();
     expect(document.querySelector('.lucide-chevron-right')).toBeNull();
   });
 
   it('renders "Home > Browse" for path /browse', () => {
     renderBreadcrumb(['/browse']);
 
-    expect(screen.getByText('Home')).toBeDefined();
-    expect(screen.getByText('Browse')).toBeDefined();
+    expect(screen.getByText('Inicio')).toBeDefined();
+    expect(screen.getByText('Explorar')).toBeDefined();
     expect(document.querySelector('.lucide-chevron-right')).toBeDefined();
   });
 
   it('renders "Home > Browse" even when URL has query params', () => {
     renderBreadcrumb(['/browse?category=dogs']);
 
-    expect(screen.getByText('Home')).toBeDefined();
-    expect(screen.getByText('Browse')).toBeDefined();
+    expect(screen.getByText('Inicio')).toBeDefined();
+    expect(screen.getByText('Explorar')).toBeDefined();
     expect(screen.queryByText('dogs')).toBeNull();
     expect(screen.queryByText('category')).toBeNull();
   });
@@ -40,14 +40,14 @@ describe('Breadcrumb', () => {
   it('last segment is not a link (span), previous segments are links', () => {
     renderBreadcrumb(['/browse']);
 
-    const homeLink = screen.getByRole('link', { name: 'Home' });
+    const homeLink = screen.getByRole('link', { name: 'Inicio' });
     expect(homeLink).toBeDefined();
     expect(homeLink.getAttribute('href')).toBe('/');
 
-    const browseLinks = screen.queryByRole('link', { name: 'Browse' });
+    const browseLinks = screen.queryByRole('link', { name: 'Explorar' });
     expect(browseLinks).toBeNull();
 
-    const browseSpan = screen.getByText('Browse');
+    const browseSpan = screen.getByText('Explorar');
     expect(browseSpan.tagName).toBe('SPAN');
   });
 
@@ -65,8 +65,8 @@ describe('Breadcrumb', () => {
     const listItems = screen.getAllByRole('listitem');
     expect(listItems).toHaveLength(3);
 
-    expect(screen.getByText('Home')).toBeDefined();
-    expect(screen.getByText('Pets')).toBeDefined();
+    expect(screen.getByText('Inicio')).toBeDefined();
+    expect(screen.getByText('Mascotas')).toBeDefined();
     expect(screen.getByText('123')).toBeDefined();
   });
 
@@ -81,8 +81,8 @@ describe('Breadcrumb', () => {
   it('renders unknown segments as raw text (graceful fallback)', () => {
     renderBreadcrumb(['/browse/xyz']);
 
-    expect(screen.getByText('Home')).toBeDefined();
-    expect(screen.getByText('Browse')).toBeDefined();
+    expect(screen.getByText('Inicio')).toBeDefined();
+    expect(screen.getByText('Explorar')).toBeDefined();
     expect(screen.getByText('xyz')).toBeDefined();
   });
 });

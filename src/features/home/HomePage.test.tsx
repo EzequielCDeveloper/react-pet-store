@@ -33,13 +33,13 @@ describe('HomePage', () => {
   it('renders HeroBanner first', () => {
     renderWithProviders(<HomePage />);
 
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Perfect Companion');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('compañero perfecto');
   });
 
   it('renders CategoryQuickLinks', () => {
     renderWithProviders(<HomePage />);
 
-    expect(screen.getByText('Shop by Category')).toBeInTheDocument();
+    expect(screen.getByText('Comprar por categoría')).toBeInTheDocument();
     expect(screen.getByText('Dogs')).toBeInTheDocument();
   });
 
@@ -47,14 +47,14 @@ describe('HomePage', () => {
     renderWithProviders(<HomePage />);
 
     await waitFor(() => {
-      expect(screen.getByText('Featured Pets')).toBeInTheDocument();
+      expect(screen.getByText('Mascotas destacadas')).toBeInTheDocument();
     });
   });
 
   it('renders PromoBanner', () => {
     renderWithProviders(<HomePage />);
 
-    expect(screen.getByText(/Special Offer/)).toBeInTheDocument();
+    expect(screen.getByText(/Oferta especial/)).toBeInTheDocument();
   });
 
   it('renders all 4 sections in correct vertical order', () => {
@@ -64,9 +64,9 @@ describe('HomePage', () => {
     expect(sections).toHaveLength(4);
 
     const sectionTexts = Array.from(sections).map(s => s.textContent || '');
-    expect(sectionTexts[0]).toContain('Perfect Companion');
-    expect(sectionTexts[1]).toContain('Shop by Category');
-    expect(sectionTexts[2]).toContain('Featured Pets');
-    expect(sectionTexts[3]).toContain('Special Offer');
+    expect(sectionTexts[0]).toContain('compañero perfecto');
+    expect(sectionTexts[1]).toContain('Comprar por categoría');
+    expect(sectionTexts[2]).toContain('Mascotas destacadas');
+    expect(sectionTexts[3]).toContain('Oferta especial');
   });
 });

@@ -23,7 +23,7 @@ export const LoginPage = () => {
   const [regEmail, setRegEmail] = useState('');
 
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem('petstore_user'));
-  const [sessionInfo, setSessionInfo] = useState<string>(() => localStorage.getItem('petstore_user') ? "Session active (local simulation)" : '');
+  const [sessionInfo, setSessionInfo] = useState<string>(() => localStorage.getItem('petstore_user') ? "Sesión activa (simulación local)" : '');
   const [showPassword, setShowPassword] = useState(false);
   const [showRegPassword, setShowRegPassword] = useState(false);
 
@@ -45,12 +45,12 @@ export const LoginPage = () => {
       localStorage.setItem('petstore_user', username);
       // Dispatch custom event to update layout
       window.dispatchEvent(new Event('user-login-update'));
-      addToast("Login successful: " + data, 'success');
+      addToast("Inicio de sesión exitoso: " + data, 'success');
       navigate('/');
     },
     onError: (error) => {
       console.error(error);
-      addToast("Login failed. Please check your credentials.", 'error');
+      addToast("Error al iniciar sesión. Verifica tus credenciales.", 'error');
     }
   });
 
@@ -70,7 +70,7 @@ export const LoginPage = () => {
       return data;
     },
     onSuccess: () => {
-      addToast("Registration successful! Please login.", 'success');
+      addToast("¡Registro exitoso! Por favor, inicia sesión.", 'success');
       setIsLoginMode(true);
       // Pre-fill login
       setUsername(regUsername);
@@ -78,7 +78,7 @@ export const LoginPage = () => {
     },
     onError: (error) => {
       console.error(error);
-      addToast("Registration failed. Please try again.", 'error');
+      addToast("Error al registrarse. Por favor, intenta de nuevo.", 'error');
     }
   });
 
@@ -95,11 +95,11 @@ export const LoginPage = () => {
       localStorage.removeItem('petstore_user');
       // Dispatch custom event to update layout
       window.dispatchEvent(new Event('user-login-update'));
-      addToast("Logged out successfully", 'success');
+      addToast("Sesión cerrada exitosamente", 'success');
     },
     onError: (error) => {
       console.error(error);
-      addToast("Logout failed", 'error');
+      addToast("Error al cerrar sesión", 'error');
     }
   });
 
@@ -110,7 +110,7 @@ export const LoginPage = () => {
           <LogIn size={32} />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Welcome, {username}!</h1>
+          <h1 className="text-2xl font-bold text-gray-900">¡Bienvenido, {username}!</h1>
           <p className="text-gray-500 mt-2">{sessionInfo}</p>
         </div>
         <button
@@ -118,7 +118,7 @@ export const LoginPage = () => {
           className="w-full flex items-center justify-center space-x-2 bg-red-600 text-white px-4 py-2.5 rounded-lg hover:bg-red-700 transition-colors shadow-sm font-medium"
         >
           <LogOut size={20} />
-          <span>Logout</span>
+           <span>Cerrar sesión</span>
         </button>
       </div>
     );
@@ -134,10 +134,10 @@ export const LoginPage = () => {
           </div>
         </div>
         <div className="flex justify-center mb-3">
-          <h1 className="text-2xl font-bold text-gray-900">{isLoginMode ? 'Welcome Back' : 'Create Account'}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{isLoginMode ? 'Bienvenido de nuevo' : 'Crear cuenta'}</h1>
         </div>
         <p className="text-gray-500 text-sm">
-          {isLoginMode ? 'Enter your credentials to access your account' : 'Join us to manage your pets'}
+          {isLoginMode ? 'Ingresa tus credenciales para acceder a tu cuenta' : 'Únete para gestionar tus mascotas'}
         </p>
       </div>
 
@@ -148,7 +148,7 @@ export const LoginPage = () => {
           }`}
           onClick={() => setIsLoginMode(true)}
         >
-          Login
+          Iniciar sesión
         </button>
         <button
           className={`flex-1 pb-2 text-sm font-medium transition-colors ${
@@ -156,7 +156,7 @@ export const LoginPage = () => {
           }`}
           onClick={() => setIsLoginMode(false)}
         >
-          Register
+          Registrarse
         </button>
       </div>
 
@@ -169,19 +169,19 @@ export const LoginPage = () => {
           className="space-y-5"
         >
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Nombre de usuario</label>
             <input
               id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="Enter your username"
+              placeholder="Ingresa tu nombre de usuario"
               required
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
             <div className="relative">
               <input
                 id="password"
@@ -189,14 +189,14 @@ export const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                placeholder="Enter your password"
+                placeholder="Ingresa tu contraseña"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
@@ -207,16 +207,16 @@ export const LoginPage = () => {
             disabled={loginMutation.isPending}
             className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all min-h-[44px]"
           >
-            {loginMutation.isPending ? 'Signing in...' : 'Sign In'}
+            {loginMutation.isPending ? 'Iniciando sesión...' : 'Iniciar sesión'}
           </button>
           <p className="text-center text-sm text-gray-500 mt-4">
-            Don&apos;t have an account?{' '}
+            ¿No tienes cuenta?{' '}
             <button
               type="button"
               onClick={() => setIsLoginMode(false)}
               className="text-blue-600 hover:text-blue-800 font-medium"
             >
-              Register here
+              Regístrate aquí
             </button>
           </p>
         </form>
@@ -230,7 +230,7 @@ export const LoginPage = () => {
         >
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="reg-firstname" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+              <label htmlFor="reg-firstname" className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
               <input
                 id="reg-firstname"
                 type="text"
@@ -241,7 +241,7 @@ export const LoginPage = () => {
               />
             </div>
             <div>
-              <label htmlFor="reg-lastname" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+              <label htmlFor="reg-lastname" className="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
               <input
                 id="reg-lastname"
                 type="text"
@@ -253,7 +253,7 @@ export const LoginPage = () => {
             </div>
           </div>
           <div>
-            <label htmlFor="reg-email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label htmlFor="reg-email" className="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
             <input
               id="reg-email"
               type="email"
@@ -264,7 +264,7 @@ export const LoginPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="reg-username" className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <label htmlFor="reg-username" className="block text-sm font-medium text-gray-700 mb-1">Nombre de usuario</label>
             <input
               id="reg-username"
               type="text"
@@ -275,7 +275,7 @@ export const LoginPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="reg-password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label htmlFor="reg-password" className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
             <div className="relative">
               <input
                 id="reg-password"
@@ -300,16 +300,16 @@ export const LoginPage = () => {
             disabled={registerMutation.isPending}
             className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all min-h-[44px]"
           >
-            {registerMutation.isPending ? 'Creating Account...' : 'Create Account'}
+            {registerMutation.isPending ? 'Creando cuenta...' : 'Crear cuenta'}
           </button>
           <p className="text-center text-sm text-gray-500 mt-4">
-            Already have an account?{' '}
+            ¿Ya tienes cuenta?{' '}
             <button
               type="button"
               onClick={() => setIsLoginMode(true)}
               className="text-blue-600 hover:text-blue-800 font-medium"
             >
-              Sign in
+              Iniciar sesión
             </button>
           </p>
         </form>

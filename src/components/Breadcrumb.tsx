@@ -59,9 +59,9 @@ interface BreadcrumbProps {
 // Segmentos conocidos como "browse" o "pets" obtienen traducción directa.
 // Cualquier segmento no mapeado se muestra tal cual (fallback).
 const labelMap: Record<string, string> = {
-  '': 'Home',
-  browse: 'Browse',
-  pets: 'Pets',
+  '': 'Inicio',
+  browse: 'Explorar',
+  pets: 'Mascotas',
 };
 
 export default function Breadcrumb({ extraCrumbs = [] }: BreadcrumbProps) {
@@ -85,7 +85,7 @@ export default function Breadcrumb({ extraCrumbs = [] }: BreadcrumbProps) {
   // PASO 3: "Home" siempre es el primer crumb, incluso si la ruta actual es "/".
   // Si la ruta es "/", allCrumbs tendrá solo [{ label: "Home", path: "/" }].
   const allCrumbs: Crumb[] = [
-    { label: 'Home', path: '/' },
+    { label: 'Inicio', path: '/' },
     ...crumbs,
     ...extraCrumbs,
   ];

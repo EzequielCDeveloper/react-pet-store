@@ -12,8 +12,8 @@ describe('Users Integration', () => {
   it('renders login/register tabs', () => {
     renderWithProviders(<LoginPage />);
 
-    const loginTab = screen.getByRole('button', { name: 'Login' });
-    const registerTab = screen.getByRole('button', { name: 'Register' });
+    const loginTab = screen.getAllByRole('button', { name: 'Iniciar sesión' })[0];
+    const registerTab = screen.getByRole('button', { name: 'Registrarse' });
     expect(loginTab).toBeInTheDocument();
     expect(registerTab).toBeInTheDocument();
   });
@@ -21,7 +21,7 @@ describe('Users Integration', () => {
   it('login tab is active by default', () => {
     renderWithProviders(<LoginPage />);
 
-    const loginTab = screen.getByRole('button', { name: 'Login' });
+    const loginTab = screen.getAllByRole('button', { name: 'Iniciar sesión' })[0];
     expect(loginTab.className).toContain('border-blue-600');
   });
 
@@ -29,10 +29,10 @@ describe('Users Integration', () => {
     const user = userEvent.setup();
     renderWithProviders(<LoginPage />);
 
-    const passwordInput = screen.getByPlaceholderText('Enter your password');
+    const passwordInput = screen.getByPlaceholderText('Ingresa tu contraseña');
     expect(passwordInput).toHaveAttribute('type', 'password');
 
-    await user.click(screen.getByLabelText('Show password'));
+    await user.click(screen.getByLabelText('Mostrar contraseña'));
     expect(passwordInput).toHaveAttribute('type', 'text');
   });
 
@@ -40,13 +40,13 @@ describe('Users Integration', () => {
     const user = userEvent.setup();
     renderWithProviders(<LoginPage />);
 
-    await user.type(screen.getByLabelText('Username'), 'testuser');
-    await user.type(screen.getByLabelText('Password'), 'password');
+    await user.type(screen.getByLabelText('Nombre de usuario'), 'testuser');
+    await user.type(screen.getByLabelText('Contraseña'), 'password');
 
-    await user.click(screen.getByRole('button', { name: /sign in/i }));
+    await user.click(screen.getAllByRole('button', { name: /iniciar sesión/i })[1]);
 
     await waitFor(() => {
-      expect(screen.getByText(/welcome, testuser/i)).toBeInTheDocument();
+      expect(screen.getByText(/bienvenido, testuser/i)).toBeInTheDocument();
     });
   });
 
@@ -54,21 +54,21 @@ describe('Users Integration', () => {
     const user = userEvent.setup();
     renderWithProviders(<LoginPage />);
 
-    const registerTab = screen.getByRole('button', { name: 'Register' });
+    const registerTab = screen.getByRole('button', { name: 'Registrarse' });
     await user.click(registerTab);
 
-    await user.type(screen.getByLabelText(/^First Name/), 'John');
-    await user.type(screen.getByLabelText(/^Last Name/), 'Doe');
-    await user.type(screen.getByLabelText(/^Email/), 'john@example.com');
-    await user.type(screen.getAllByLabelText(/^Username/)[0], 'newuser');
-    await user.type(screen.getAllByLabelText(/^Password/)[0], 'secret');
+    await user.type(screen.getByLabelText('Nombre'), 'John');
+    await user.type(screen.getByLabelText('Apellido'), 'Doe');
+    await user.type(screen.getByLabelText('Correo electrónico'), 'john@example.com');
+    await user.type(screen.getAllByLabelText('Nombre de usuario')[0], 'newuser');
+    await user.type(screen.getAllByLabelText('Contraseña')[0], 'secret');
 
     window.alert = () => {};
 
-    await user.click(screen.getByRole('button', { name: /create account/i }));
+    await user.click(screen.getByRole('button', { name: /crear cuenta/i }));
 
     await waitFor(() => {
-      expect(screen.getByText(/registration successful/i)).toBeInTheDocument();
+      expect(screen.getByText(/registro exitoso/i)).toBeInTheDocument();
     });
   });
 
@@ -76,7 +76,7 @@ describe('Users Integration', () => {
     localStorage.setItem('petstore_user', 'testuser');
     renderWithProviders(<LoginPage />);
 
-    expect(screen.getByText(/welcome, testuser/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /logout/i })).toBeInTheDocument();
+    expect(screen.getByText(/bienvenido, testuser/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /cerrar sesión/i })).toBeInTheDocument();
   });
 });

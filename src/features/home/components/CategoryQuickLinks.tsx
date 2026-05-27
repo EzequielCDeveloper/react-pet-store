@@ -61,7 +61,7 @@ export default function CategoryQuickLinks({ categories }: CategoryQuickLinksPro
     <section className="py-12 md:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-10">
-          Shop by Category
+          Comprar por categoría
         </h2>
         <div className="flex flex-wrap justify-center gap-6 md:gap-8">
           {categories.map((category, index) => (

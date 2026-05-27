@@ -35,7 +35,7 @@ export const PetCard = ({ pet }: PetCardProps) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(pet);
-    addToast('Added to cart!', 'success');
+    addToast('¡Agregado al carrito!', 'success');
   };
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
@@ -54,7 +54,7 @@ export const PetCard = ({ pet }: PetCardProps) => {
         to={`/pets/${pet.id}`}
         className="absolute inset-0 z-0"
       >
-        <span className="sr-only">View {pet.name}</span>
+        <span className="sr-only">Ver {pet.name}</span>
       </Link>
       <div className="h-48 bg-gray-200 relative overflow-hidden">
         <img 
@@ -70,7 +70,7 @@ export const PetCard = ({ pet }: PetCardProps) => {
         <button
           onClick={handleToggleFavorite}
           className="absolute top-2 left-2 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-all z-10"
-          aria-label={isFavorite ? `Remove ${pet.name} from favorites` : `Add ${pet.name} to favorites`}
+          aria-label={isFavorite ? `Quitar ${pet.name} de favoritos` : `Agregar ${pet.name} a favoritos`}
           data-testid={`favorite-btn-${pet.id}`}
         >
           <Heart 
@@ -87,18 +87,18 @@ export const PetCard = ({ pet }: PetCardProps) => {
             "px-2 py-1 text-xs font-semibold rounded-full uppercase shadow-sm",
             statusColors[pet.status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'
           )}>
-            {pet.status || 'unknown'}
+            {pet.status || 'desconocido'}
           </span>
         </div>
       </div>
       <div className="p-4 flex flex-col flex-1">
         <div className="flex justify-between items-start mb-2">
-           <h3 className="text-lg font-bold text-gray-900 line-clamp-1">{pet.name || 'Unnamed Pet'}</h3>
+           <h3 className="text-lg font-bold text-gray-900 line-clamp-1">{pet.name || 'Mascota sin nombre'}</h3>
            <span className="text-lg font-bold text-blue-600">£{price}</span>
         </div>
         
         {pet.category && (
-          <p className="text-sm text-gray-500 mb-2">Category: {pet.category.name}</p>
+          <p className="text-sm text-gray-500 mb-2">Categoría: {pet.category.name}</p>
         )}
         
         <div className="flex flex-wrap gap-1 mb-4">
@@ -121,21 +121,21 @@ export const PetCard = ({ pet }: PetCardProps) => {
               className="w-full flex items-center justify-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               <ShoppingCart className="w-4 h-4" />
-              <span>Add to Cart</span>
+              <span>Agregar al carrito</span>
             </button>
           ) : pet.status === 'pending' ? (
             <button
               disabled
               className="w-full flex items-center justify-center space-x-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg cursor-not-allowed border border-yellow-200"
             >
-              <span>Pending</span>
+              <span>Pendiente</span>
             </button>
           ) : (
             <button
               disabled
               className="w-full flex items-center justify-center space-x-2 bg-red-100 text-red-800 px-4 py-2 rounded-lg cursor-not-allowed border border-red-200"
             >
-              <span>Sold</span>
+              <span>Vendido</span>
             </button>
           )}
         </div>

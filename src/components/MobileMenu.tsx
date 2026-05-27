@@ -24,7 +24,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Menú de navegación">
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
@@ -32,11 +32,11 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       />
       <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl animate-slide-in-right">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <span className="text-lg font-semibold text-gray-900">Menu</span>
+          <span className="text-lg font-semibold text-gray-900">Menú</span>
           <button
             onClick={onClose}
             className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-md"
-            aria-label="Close menu"
+            aria-label="Cerrar menú"
             autoFocus
           >
             <X size={24} />
@@ -50,7 +50,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 onClick={onClose}
                 className="block px-4 py-3 min-h-[44px] rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
               >
-                Home
+                Inicio
               </Link>
             </li>
             <li>
@@ -59,7 +59,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 onClick={onClose}
                 className="block px-4 py-3 min-h-[44px] rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
               >
-                Browse
+                Explorar
               </Link>
             </li>
             <li>
@@ -68,7 +68,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 onClick={onClose}
                 className="block px-4 py-3 min-h-[44px] rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
               >
-                Cart
+                Carrito
               </Link>
             </li>
             <li>
@@ -77,7 +77,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 onClick={onClose}
                 className="block px-4 py-3 min-h-[44px] rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
               >
-                Login
+                Iniciar sesión
               </Link>
             </li>
           </ul>

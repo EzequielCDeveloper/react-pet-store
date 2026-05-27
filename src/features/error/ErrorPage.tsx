@@ -5,20 +5,20 @@ export const ErrorPage = () => {
   const error = useRouteError();
   
   let errorMessage: string;
-  let errorTitle = "Oops! Something went wrong";
+  let errorTitle = "¡Ups! Algo salió mal";
   let errorCode = "Error";
 
   if (isRouteErrorResponse(error)) {
     // 404, 401, 503, etc.
     errorCode = error.status.toString();
     errorTitle = error.statusText;
-    errorMessage = error.data?.message || "Sorry, an unexpected error has occurred.";
+    errorMessage = error.data?.message || "Lo sentimos, ha ocurrido un error inesperado.";
   } else if (error instanceof Error) {
     errorMessage = error.message;
   } else if (typeof error === 'string') {
     errorMessage = error;
   } else {
-    errorMessage = 'Unknown error';
+    errorMessage = 'Error desconocido';
   }
 
   return (
@@ -44,7 +44,7 @@ export const ErrorPage = () => {
           className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors w-full"
         >
           <Home className="w-5 h-5" />
-          <span>Return Home</span>
+          <span>Volver al inicio</span>
         </Link>
       </div>
     </div>

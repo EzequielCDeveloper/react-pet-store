@@ -63,8 +63,8 @@ describe('FeaturedPets', () => {
       />
     );
 
-    expect(screen.getByText(/Unable to load featured pets/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Retry/i })).toBeInTheDocument();
+    expect(screen.getByText(/No se pudieron cargar/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Reintentar/i })).toBeInTheDocument();
   });
 
   it('error state clicking Retry calls onRetry prop', async () => {
@@ -80,7 +80,7 @@ describe('FeaturedPets', () => {
       />
     );
 
-    await user.click(screen.getByRole('button', { name: /Retry/i }));
+    await user.click(screen.getByRole('button', { name: /Reintentar/i }));
     expect(onRetry).toHaveBeenCalledOnce();
   });
 
@@ -94,7 +94,7 @@ describe('FeaturedPets', () => {
       />
     );
 
-    expect(screen.getByText('No pets available at the moment')).toBeInTheDocument();
+    expect(screen.getByText('No hay mascotas disponibles en este momento')).toBeInTheDocument();
   });
 
   it('data state renders correct number of PetCard components', () => {
@@ -123,7 +123,7 @@ describe('FeaturedPets', () => {
       />
     );
 
-    const section = screen.getByText('Featured Pets').closest('section');
+    const section = screen.getByText('Mascotas destacadas').closest('section');
     const grid = section?.querySelector('.grid');
     expect(grid).toBeTruthy();
   });

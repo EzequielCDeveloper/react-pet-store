@@ -49,8 +49,8 @@ describe('BrowseGrid', () => {
       />
     );
 
-    expect(screen.getByText(/Unable to load pets/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Try again/i })).toBeInTheDocument();
+    expect(screen.getByText(/No se pudieron cargar/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Intentar de nuevo/i })).toBeInTheDocument();
   });
 
   it('error state clicking Try again calls onRetry prop', async () => {
@@ -66,7 +66,7 @@ describe('BrowseGrid', () => {
       />
     );
 
-    await user.click(screen.getByRole('button', { name: /Try again/i }));
+    await user.click(screen.getByRole('button', { name: /Intentar de nuevo/i }));
     expect(onRetry).toHaveBeenCalledOnce();
   });
 
@@ -80,7 +80,7 @@ describe('BrowseGrid', () => {
       />
     );
 
-    expect(screen.getByText('No pets match your filters')).toBeInTheDocument();
+    expect(screen.getByText('No se encontraron mascotas con esos filtros')).toBeInTheDocument();
   });
 
   it('data state renders correct number of PetCard components', () => {

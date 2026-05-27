@@ -54,7 +54,7 @@ export default function BrowseSidebar({
           htmlFor="filter-status"
           className="block text-sm font-medium text-gray-700 mb-1.5"
         >
-          Status
+          Estado
         </label>
         <select
           id="filter-status"
@@ -62,10 +62,10 @@ export default function BrowseSidebar({
           onChange={(e) => onFilterChange('status', e.target.value)}
           className={selectClasses}
         >
-          <option value="">All</option>
-          <option value="available">Available</option>
-          <option value="pending">Pending</option>
-          <option value="sold">Sold</option>
+          <option value="">Todos</option>
+          <option value="available">Disponible</option>
+          <option value="pending">Pendiente</option>
+          <option value="sold">Vendido</option>
         </select>
       </div>
 
@@ -74,7 +74,7 @@ export default function BrowseSidebar({
           htmlFor="filter-category"
           className="block text-sm font-medium text-gray-700 mb-1.5"
         >
-          Category
+          Categoría
         </label>
         <select
           id="filter-category"
@@ -83,9 +83,9 @@ export default function BrowseSidebar({
           disabled={isLoading}
           className={selectClasses}
         >
-          <option value="">All</option>
+          <option value="">Todos</option>
           {isLoading ? (
-            <option disabled>Loading...</option>
+            <option disabled>Cargando...</option>
           ) : (
             categories.map((cat) => (
               <option key={cat} value={cat}>
@@ -101,7 +101,7 @@ export default function BrowseSidebar({
           htmlFor="filter-sort"
           className="block text-sm font-medium text-gray-700 mb-1.5"
         >
-          Sort
+          Ordenar por
         </label>
         <select
           id="filter-sort"
@@ -109,10 +109,10 @@ export default function BrowseSidebar({
           onChange={(e) => onFilterChange('sort', e.target.value)}
           className={selectClasses}
         >
-          <option value="name-asc">Name A-Z</option>
-          <option value="name-desc">Name Z-A</option>
-          <option value="price-low">Price Low-High</option>
-          <option value="price-high">Price High-Low</option>
+          <option value="name-asc">Nombre A-Z</option>
+          <option value="name-desc">Nombre Z-A</option>
+          <option value="price-low">Precio menor-mayor</option>
+          <option value="price-high">Precio mayor-menor</option>
         </select>
       </div>
 
@@ -121,7 +121,7 @@ export default function BrowseSidebar({
           htmlFor="filter-hasPhoto"
           className="block text-sm font-medium text-gray-700 mb-1.5"
         >
-          Photo
+          Foto
         </label>
         <select
           id="filter-hasPhoto"
@@ -129,8 +129,8 @@ export default function BrowseSidebar({
           onChange={(e) => onFilterChange('hasPhoto', e.target.value)}
           className={selectClasses}
         >
-          <option value="">Show all</option>
-          <option value="yes">With photos only</option>
+          <option value="">Mostrar todos</option>
+          <option value="yes">Solo con foto</option>
         </select>
       </div>
 
@@ -138,7 +138,7 @@ export default function BrowseSidebar({
         onClick={onClearAll}
         className="w-full px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
       >
-        Clear all filters
+        Limpiar filtros
       </button>
     </div>
   );
@@ -147,7 +147,7 @@ export default function BrowseSidebar({
     <>
       <aside className="hidden lg:block w-72 flex-shrink-0">
         <div className="sticky top-20 space-y-6">
-          <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Filtros</h2>
           {filterContent}
         </div>
       </aside>
@@ -167,16 +167,16 @@ export default function BrowseSidebar({
             className={`fixed top-0 left-0 h-full w-72 bg-white z-40 shadow-xl transform transition-transform duration-300 ease-in-out lg:hidden overflow-y-auto ${
               isOpen ? 'translate-x-0' : '-translate-x-full pointer-events-none'
             }`}
-            aria-label="Filters sidebar"
+            aria-label="Barra lateral de filtros"
             aria-modal="true"
           >
             <div className="p-4">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+                <h2 className="text-lg font-semibold text-gray-900">Filtros</h2>
                 <button
                   onClick={onClose}
                   className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                  aria-label="Close filters"
+                  aria-label="Cerrar filtros"
                 >
                   <X size={20} />
                 </button>
