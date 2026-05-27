@@ -25,7 +25,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
 };
 
 function CategoryCircle({ category, index }: { readonly category: CategoryData; readonly index: number }) {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
+  const { ref, isVisible } = useScrollReveal<HTMLAnchorElement>({ threshold: 0.1 });
   const IconComponent = iconMap[category.icon];
   const colors = CATEGORY_COLORS[category.slug] || { bg: '#f0f9ff', text: '#2563eb' };
 

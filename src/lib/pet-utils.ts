@@ -1,8 +1,5 @@
 export const getPetImage = (petId: number | undefined): string => {
-  // Use a fallback ID if undefined
   const id = petId || 0;
-  // Use loremflickr with lock to ensure consistent images per pet ID
-  // Keywords: dog, cat, pet
   return `https://loremflickr.com/400/300/dog,cat?lock=${id}`;
 };
 

@@ -15,7 +15,7 @@ interface FeaturedPetsProps {
 }
 
 function RevealCard({ pet, index }: { readonly pet: Pet; readonly index: number }) {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
+  const { ref, isVisible } = useScrollReveal<HTMLDivElement>({ threshold: 0.1 });
 
   return (
     <div

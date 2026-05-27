@@ -6,14 +6,14 @@ interface UseScrollRevealOptions {
   readonly triggerOnce?: boolean;
 }
 
-interface UseScrollRevealReturn {
-  readonly ref: React.RefObject<HTMLElement | null>;
+interface UseScrollRevealReturn<T extends HTMLElement = HTMLElement> {
+  readonly ref: React.RefObject<T | null>;
   readonly isVisible: boolean;
 }
 
-export function useScrollReveal(options: UseScrollRevealOptions = {}): UseScrollRevealReturn {
+export function useScrollReveal<T extends HTMLElement = HTMLElement>(options: UseScrollRevealOptions = {}): UseScrollRevealReturn<T> {
   const { threshold = 0.1, rootMargin = '0px', triggerOnce = true } = options;
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<T | null>(null);
   const [isVisible, setIsVisible] = useState(() =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );

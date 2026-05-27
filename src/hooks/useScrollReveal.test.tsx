@@ -29,7 +29,7 @@ function TestComponent({
   readonly triggerOnce?: boolean;
   readonly onRender: (data: { isVisible: boolean }) => void;
 }) {
-  const { ref, isVisible } = useScrollReveal({ triggerOnce, threshold: 0.1 });
+  const { ref, isVisible } = useScrollReveal<HTMLDivElement>({ triggerOnce, threshold: 0.1 });
   onRender({ isVisible });
   return <div ref={ref}>test</div>;
 }
@@ -58,27 +58,27 @@ describe('useScrollReveal', () => {
   });
 
   it('returns isVisible initially false', () => {
-    let captured: { isVisible: boolean } | null = null;
+    const state = { captured: null as { isVisible: boolean } | null };
 
     render(
       <TestComponent
         onRender={(data) => {
-          captured = data;
+          state.captured = data;
         }}
       />,
     );
 
-    expect(captured?.isVisible).toBe(false);
+    expect(state.captured?.isVisible).toBe(false);
   });
 
   it('isVisible becomes true when intersecting', () => {
-    let captured: { isVisible: boolean } | null = null;
+    const state = { captured: null as { isVisible: boolean } | null };
 
     render(
       <TestComponent
         triggerOnce={false}
         onRender={(data) => {
-          captured = data;
+          state.captured = data;
         }}
       />,
     );
@@ -87,17 +87,17 @@ describe('useScrollReveal', () => {
       observerCallback?.([{ isIntersecting: true }]);
     });
 
-    expect(captured?.isVisible).toBe(true);
+    expect(state.captured?.isVisible).toBe(true);
   });
 
   it('isVisible stays true with triggerOnce (does not toggle back)', () => {
-    let captured: { isVisible: boolean } | null = null;
+    const state = { captured: null as { isVisible: boolean } | null };
 
     render(
       <TestComponent
         triggerOnce={true}
         onRender={(data) => {
-          captured = data;
+          state.captured = data;
         }}
       />,
     );
@@ -106,23 +106,23 @@ describe('useScrollReveal', () => {
       observerCallback?.([{ isIntersecting: true }]);
     });
 
-    expect(captured?.isVisible).toBe(true);
+    expect(state.captured?.isVisible).toBe(true);
 
     act(() => {
       observerCallback?.([{ isIntersecting: false }]);
     });
 
-    expect(captured?.isVisible).toBe(true);
+    expect(state.captured?.isVisible).toBe(true);
   });
 
   it('with triggerOnce=false, isVisible toggles back to false', () => {
-    let captured: { isVisible: boolean } | null = null;
+    const state = { captured: null as { isVisible: boolean } | null };
 
     render(
       <TestComponent
         triggerOnce={false}
         onRender={(data) => {
-          captured = data;
+          state.captured = data;
         }}
       />,
     );
@@ -131,13 +131,13 @@ describe('useScrollReveal', () => {
       observerCallback?.([{ isIntersecting: true }]);
     });
 
-    expect(captured?.isVisible).toBe(true);
+    expect(state.captured?.isVisible).toBe(true);
 
     act(() => {
       observerCallback?.([{ isIntersecting: false }]);
     });
 
-    expect(captured?.isVisible).toBe(false);
+    expect(state.captured?.isVisible).toBe(false);
   });
 
   it('respects prefers-reduced-motion (isVisible starts true)', () => {
@@ -155,16 +155,16 @@ describe('useScrollReveal', () => {
       })),
     );
 
-    let captured: { isVisible: boolean } | null = null;
+    const state = { captured: null as { isVisible: boolean } | null };
 
     render(
       <TestComponent
         onRender={(data) => {
-          captured = data;
+          state.captured = data;
         }}
       />,
     );
 
-    expect(captured?.isVisible).toBe(true);
+    expect(state.captured?.isVisible).toBe(true);
   });
 });

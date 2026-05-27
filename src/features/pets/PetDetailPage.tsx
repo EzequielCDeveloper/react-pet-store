@@ -33,9 +33,7 @@ function PetImageCarousel({ pet }: { readonly pet: Pet }) {
     );
   }
 
-  const images = pet.photoUrls.length > 1
-    ? pet.photoUrls
-    : [getPetImage(pet.id, 0), getPetImage(pet.id, 1), getPetImage(pet.id, 2), getPetImage(pet.id, 3)];
+  const images = pet.photoUrls;
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
